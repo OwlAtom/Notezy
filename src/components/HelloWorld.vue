@@ -1,6 +1,14 @@
 <template>
   <div class="hello">
     <h1>Hello Notezy</h1>
+    <nav>
+      <ul>
+        <li>Home</li>
+        <li>Todo</li>
+        <li>Notes</li>
+        <li>Goals</li>
+      </ul>
+    </nav>
   </div>
 </template>
 
