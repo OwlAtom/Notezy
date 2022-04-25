@@ -1,9 +1,13 @@
 <template>
+  <router-view />
+
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link :to="{ name: 'Home' }">Home</router-link> |
+    <router-link to="/todo">Todo</router-link> |
+    <router-link to="/todo">Notes</router-link> |
+    <router-link to="/todo">Goals</router-link>
   </nav>
-  <router-view/>
+
 </template>
 
 <style lang="less">
@@ -19,11 +23,12 @@ nav {
   padding: 30px;
 
   a {
-    font-weight: bold;
     color: #2c3e50;
+    text-decoration: none;
 
     &.router-link-exact-active {
       color: #42b983;
+
     }
   }
 }

@@ -1,14 +1,7 @@
 <template>
   <div class="hello">
     <h1>Hello Notezy</h1>
-    <nav>
-      <ul>
-        <router-link to="/">Home</router-link>
-        <router-link to="/todo">Todo</router-link>
-        <li>Notes</li>
-        <li>Goals</li>
-      </ul>
-    </nav>
+
   </div>
 </template>
 

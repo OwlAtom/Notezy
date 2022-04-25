@@ -5,12 +5,12 @@ import TodoView from '../views/TodoView.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: HomeView
   },
   {
     path: '/todo',
-    name: 'todo',
+    name: 'Todo',
     component: TodoView
   },
   {
