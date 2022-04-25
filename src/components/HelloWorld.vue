@@ -3,8 +3,8 @@
     <h1>Hello Notezy</h1>
     <nav>
       <ul>
-        <li>Home</li>
-        <li>Todo</li>
+        <router-link to="/">Home</router-link>
+        <router-link to="/todo">Todo</router-link>
         <li>Notes</li>
         <li>Goals</li>
       </ul>
