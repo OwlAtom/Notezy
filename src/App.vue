@@ -1,14 +1,18 @@
 <template>
   <router-view />
 
-  <nav>
-    <router-link :to="{ name: 'Home' }">Home</router-link> |
-    <router-link to="/todo">Todo</router-link> |
-    <router-link to="/todo">Notes</router-link> |
-    <router-link to="/todo">Goals</router-link>
-  </nav>
+  <Navigation />
 
 </template>
+
+<script>
+import Navigation from './components/Navigation'
+
+export default {
+  name: 'app',
+  components: { Navigation }
+}
+</script>
 
 <style lang="less">
 #app {
