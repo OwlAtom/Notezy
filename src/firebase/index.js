@@ -14,7 +14,18 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
+
+// use this to check if the user is logged in
+// or use the pinia store to check the fields "email" and "displayName"
+// is checking the pinia store faster than the firebase auth?
+app.auth().onAuthStateChanged((user) => {
+  if (user) {
+    console.log("user is logged in");
+  } else {
+    console.log("user is not logged in");
+  }
+});
 
 // utils
 const db = firebase.firestore();

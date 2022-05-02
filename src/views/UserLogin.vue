@@ -14,41 +14,43 @@ import {
 const provider = new GoogleAuthProvider();
 
 const auth = getAuth();
-getRedirectResult(auth)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
+import { mapActions } from "pinia";
+import { userStore } from "../store/user";
 
-    // The signed-in user info.
-    const user = result.user;
-    console.log(user, token);
-    // pinia = {
-    //   email: user.email,
-    //   name: user.displayName,
-    //   photo: user.photoURL,
-    //   token: token,
-    // };
-  })
-  .catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-    console.log(errorCode, errorMessage, email, credential);
-  });
 export default {
   name: "SignUp",
+  mounted() {
+    // only check redirect result _tokenResponse is not null
+    // if _tokenResponse is null, it means user is not redirected from google sign in
+    getRedirectResult(auth)
+      .then((result) => {
+        // if the user is visiting this page, without being redirected from google sign in
+        // the result object will not contain any valid token
+        if (!result?._tokenResponse) {
+          return;
+        }
+        // The signed-in user info.
+        const user = result.user;
+        // write to store
+        this.setUser({
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          uid: user.uid,
+        });
+        // redirect to home
+        this.$router.push({ name: "Home" });
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        console.warn(error);
+      });
+  },
   methods: {
     googleSignIn: function () {
-      // We'll create functionality here
-
       signInWithRedirect(auth, provider);
     },
+    ...mapActions(userStore, ["setUser"]),
   },
 };
 </script>
