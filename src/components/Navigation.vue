@@ -1,12 +1,14 @@
 <template>
   <nav>
-    <!-- <router-link :to="{ name: 'Landing' }">Landing</router-link> -->
-    <!-- <span v-if="loggedIn"> -->
-    <span>
+    <span v-if="loggedIn">
+    <!-- <span> -->
       <router-link :to="{ name: 'Home' }"><img :src="homeIcon" />Dashboard</router-link>
       <router-link :to="{ name: 'Todo' }"><img :src="todoIcon" />Todo</router-link>
       <router-link :to="{ name: 'Notes' }"><img :src="noteIcon" />Notes</router-link>
       <router-link :to="{ name: 'Goals' }"><img :src="goalIcon" />Goals</router-link>
+    </span>
+    <span v-else>
+      <router-link :to="{ name: 'Landing' }">Landing</router-link>
     </span>
   </nav>
 </template>
@@ -81,7 +83,7 @@ nav {
 
     // this class is created with the vue router
     &.router-link-exact-active {
-      color: #42b983;
+      color: #626ADE;
 
       img {
         filter: invert(44%) sepia(22%) saturate(7152%) hue-rotate(220deg) brightness(93%) contrast(86%);
