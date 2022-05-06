@@ -14,7 +14,17 @@
       </ul>
     </div>
     <NewGoal />
-    <CreateGoal />
+       <button
+      type="button"
+      class="btn"
+      @click="showModal">
+      Create New Goal
+    </button>
+
+    <CreateGoal
+      v-show="isModalVisible"
+      @close="closeModal"
+    />
     </div>
 </template>
 
@@ -33,6 +43,19 @@ setup() {
       
     }
   },
+      data() {
+      return {
+        isModalVisible: false,
+      };
+    },
+    methods: {
+      showModal() {
+        this.isModalVisible = true;
+      },
+      closeModal() {
+        this.isModalVisible = false;
+      }
+    }
  };
 </script>
 

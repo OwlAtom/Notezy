@@ -3,7 +3,7 @@
     <div class="modal">
       <header class="modal-header">
         <slot name="header">
-          This is the default title!
+          New Goal
         </slot>
         <button
           type="button"
@@ -16,7 +16,26 @@
 
       <section class="modal-body">
         <slot name="body">
-          This is the default body!
+            <h4>Name:</h4>
+          <input type="text" placeholder="Name your goal" v-model="newHabit" /><br />
+            <h4>Description:</h4>         
+          <input type="text" placeholder="Describe your goal" v-model="newHabit" /><br />
+            <h4>Goal:</h4>
+            <p>Weekly</p>
+          <input type="radio" v-model="newHabit" /><br />
+          <p>Monthly</p>
+          <input type="radio" v-model="newHabit" /><br />
+        <input type="number" v-model="reps" />times a week<br />
+        <NewGoal />
+            <h4>Color:</h4>
+        <div class="usercolor" user-green></div>
+        <div class="usercolor" user-light-blue></div>
+        <!-- <div user-blue></div>
+        <div user-lavender></div>
+        <div user-red></div>
+        <div user-orange></div>
+        <div user-yellow></div> -->
+
         </slot>
        </section>
 
@@ -37,8 +56,11 @@
 </template>
 
 <script>
+import NewGoal from '../components/NewGoal.vue';
+
   export default {
     name: 'CreateGoal',
+    components: { NewGoal },
     methods: {
       close() {
         this.$emit('close');
@@ -110,5 +132,11 @@
     background: #4AAE9B;
     border: 1px solid #4AAE9B;
     border-radius: 2px;
+  }
+
+  .usercolor{
+      width: 20px;
+      height: 20px;
+      border-radius: 50px;
   }
 </style>
