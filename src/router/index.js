@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LandingView from "../views/LandingView.vue";
 import Dashboard from "../views/Dashboard.vue";
-import TodoView from "../views/TodoView.vue";
+import TodoOverview from "../views/TodoOverview.vue";
 import NotesView from "../views/NotesView.vue";
 import GoalsView from "../views/GoalsView.vue";
 
@@ -19,7 +19,12 @@ const routes = [
   {
     path: "/todo",
     name: "Todo",
-    component: TodoView,
+    component: TodoOverview,
+  },
+  {
+    path: "/todo",
+    name: "TodoList",
+    component: TodoOverview,
   },
   {
     path: "/notes",
