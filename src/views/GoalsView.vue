@@ -14,11 +14,8 @@
       </ul>
     </div>
     <NewGoal />
-    <!-- <button class="new-goal"><img :src="todoIcon"/>Create new goal</button> -->
-      <router-link :to="{ name: 'CreateGoal' }"><img :src="todoIcon"/>Create new goal</router-link>
-
-
-  </div>
+    <CreateGoal />
+    </div>
 </template>
 
 <script>
