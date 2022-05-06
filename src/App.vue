@@ -15,19 +15,22 @@ export default {
 
 <style lang="less">
 
-//main color
-@main-blue:#626ADE;
-@main-white:#FAFAFA;
-@main-dark-color: #3B252C;
+@maincolors: {blue: #626ADE; white: #FAFAFA; dark-color: #3B252C}
 
-//user colors
-@green:#68DEA3;
-@blue:#818EF5;
-@light-blue: #8AEDE5;
-@lavender: #D79EF4;
-@red:#ED84A0;
-@orange:#F7BE87;
-@yellow: #F1DE79;
+each(@maincolors, {
+    .main-@{key} {
+        background-color: @value;
+    }
+});
+
+@usercolors: {green: #68DEA3; blue: #818EF5; light-blue:#8AEDE5; lavender: #D79EF4;
+red: #ED84A0; orange: #F7BE87; yellow: #F1DE79}
+
+each(@usercolors, {
+    .user-@{key} {
+        background-color: @value;
+    }
+});
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -35,5 +38,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+button{
+  width: 80%;
+  padding: 3em 10em;
+  text-align: center;
 }
 </style>

@@ -14,6 +14,7 @@
       </ul>
     </div>
     <NewGoal />
+    <button class="new-goal">Create new goal</button>
   </div>
 </template>
 
@@ -26,7 +27,7 @@ components: { NewGoal },
  };
 </script>
 
-<style lang='less' scoped>
+<style lang='less'>
 
 
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-    <div class="goal">
+    <div class="goal main-blue">
         <h4>Goal name</h4>
         <div class="checkboxes">
         <input type="checkbox" name="checkbox" value="day" id="day">
@@ -28,7 +28,7 @@ export default {
     margin: 0 .8em;
 }
 .goal{
-    background-color:#68DEA3;
+    // background-color: ;
     height: 7.6em;
     width: 80%;
     margin: 1.5em 1.5em;
