@@ -26,11 +26,16 @@ export default {
     },
   },
   mounted() {
+    if (this.user.wasRehydrated) {
+      this.loggedIn = true;
+    } else {
+      this.loggedIn = false;
+    }
     // each time the user store changes, update the loggedIn variable
-    this.user.$subscribe(() => {
+    this.user.$onAction(({ args }) => {
       // set loggedIn to true if user has an email
       // should we also check if the user is logged in with google?
-      if (this.user?.email) {
+      if (args[0]?.email) {
         this.loggedIn = true;
       } else {
         this.loggedIn = false;
