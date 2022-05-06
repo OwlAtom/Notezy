@@ -4,6 +4,7 @@ import Dashboard from "../views/Dashboard.vue";
 import TodoView from "../views/TodoView.vue";
 import NotesView from "../views/NotesView.vue";
 import GoalsView from "../views/GoalsView.vue";
+import Dashboard from "../views/Dashboard.vue";
 
 const routes = [
   {
@@ -12,7 +13,7 @@ const routes = [
     component: LandingView,
   },
   {
-    path: "/",
+    path: "/home",
     name: "Home",
     component: Dashboard,
   },

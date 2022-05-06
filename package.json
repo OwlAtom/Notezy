@@ -12,6 +12,7 @@
     "normalize.css": "^8.0.1",
     "firebase": "^9.6.11",
     "pinia": "^2.0.13",
+    "pinia-plugin-persistedstate": "^1.5.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3"
   },
