@@ -53,7 +53,7 @@ label {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  // text-align: center; we cant text align center for our entire app
   color: #2c3e50;
 }
 </style>
