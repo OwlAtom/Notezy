@@ -42,7 +42,6 @@ each(@usercolors, {
 
 button{
   width: 80%;
-  padding: 3em 10em;
-  text-align: center;
-}
+  height: 2em;
+ }
 </style>
