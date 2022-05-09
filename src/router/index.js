@@ -4,6 +4,7 @@ import Dashboard from "../views/Dashboard.vue";
 import TodoOverview from "../views/TodoOverview.vue";
 import NotesView from "../views/NotesView.vue";
 import GoalsView from "../views/GoalsView.vue";
+import TodoListView from "../views/TodoListView.vue";
 
 const routes = [
   {
@@ -22,9 +23,9 @@ const routes = [
     component: TodoOverview,
   },
   {
-    path: "/todo",
+    path: "/todoList/:id",
     name: "TodoList",
-    component: TodoOverview,
+    component: TodoListView,
   },
   {
     path: "/notes",

@@ -27,8 +27,15 @@
           :key="index"
         >
           <div class="todo-item">
-            <p>{{ item.name }}</p>
+            <p :class="{ completed: item.completed }">{{ item.name }}</p>
           </div>
+          <template v-for="(subtask, index) in item.subtasks" :key="index">
+            <div class="todo-item todo-item-subtask">
+              <p :class="{ completed: subtask.completed }">
+                {{ subtask.name }}
+              </p>
+            </div>
+          </template>
         </div>
       </div>
       <!-- this has to be a button for aria purposes -->
@@ -41,6 +48,8 @@
 
 <script>
 import { todoStore } from "../store/todo";
+import { v4 as uuid } from "uuid";
+
 export default {
   name: "TodoOverview",
   computed: {
@@ -54,7 +63,6 @@ export default {
     };
   },
   mounted() {
-    console.log("was mounted");
     // this.todoLists = this.todoLists;
   },
   methods: {
@@ -68,17 +76,15 @@ export default {
     addTodoList() {
       const todoList = {
         name: this.$refs.todoListName.value,
-        id: Date.now(),
+        id: uuid(),
         items: [],
       };
       this.todoStore.addTodoList(todoList);
       this.modalActive = false;
     },
     openTodoList(id) {
-      console.log("open todo list");
-      console.log(id);
       //remove it from the store
-      this.todoStore.removeTodoList(id);
+      //this.todoStore.removeTodoList(id);
 
       this.$router.push({
         name: "TodoList",
@@ -92,6 +98,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.completed {
+  text-decoration: line-through;
+}
 h1 {
   text-transform: uppercase;
   margin-top: 1.5em;
