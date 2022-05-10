@@ -35,6 +35,45 @@ export default {
 // todo: only load font weights that are used (do this after styling is complete)
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
 
+.big-title {
+  font-family: "Bebas Neue", cursive;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.medium-title {
+  font-family: "Bebas Neue", cursive;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.small-title {
+  font-family: "Bebas Neue", cursive;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.big-text {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.medium-text {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.small-text {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+
 h1,
 h2,
 h3,
