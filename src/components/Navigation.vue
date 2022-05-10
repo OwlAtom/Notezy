@@ -75,6 +75,7 @@ nav {
   border-radius: 1em 1em 0 0;
   position: fixed;
   bottom: 0;
+  text-align: center;
 
   span {
     display: flex;
