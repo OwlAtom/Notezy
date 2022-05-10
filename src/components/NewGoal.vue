@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-    <div class="goal main-blue">
+    <div class="goal">
         <h4>Goal name</h4>
         <div class="checkboxes">
         <input type="checkbox" name="checkbox" value="day" id="day">
@@ -33,6 +33,7 @@ export default {
     width: 80%;
     margin: 1.5em 1.5em;
     border-radius: .5em;
+    background-color: var(--main-blue);
 }
 input[type=checkbox]{
     margin: 0.3em 1em;
