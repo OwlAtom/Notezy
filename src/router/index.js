@@ -12,7 +12,7 @@ const routes = [
     component: LandingView,
   },
   {
-    path: "/",
+    path: "/home",
     name: "Home",
     component: Dashboard,
   },

@@ -30,22 +30,27 @@ export default {
     --yellow: #F1DE79;
 }
 
-// @maincolors: {blue: #626ADE; white: #FAFAFA; dark-color: #3B252C}
 
-// each(@maincolors, {
-//     .main-@{key} {
-//         background-color: @value;
-//     }
-// });
+// google fonts
+// todo: only load font weights that are used (do this after styling is complete)
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
 
-// @usercolors: {green: #68DEA3; blue: #818EF5; light-blue:#8AEDE5; lavender: #D79EF4;
-// red: #ED84A0; orange: #F7BE87; yellow: #F1DE79}
-
-// each(@usercolors, {
-//     .user-@{key} {
-//         background-color: @value;
-//     }
-// });
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Bebas Neue", cursive;
+}
+p,
+a,
+button,
+input,
+li,
+label {
+  font-family: "Nunito Sans", sans-serif;
+}
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

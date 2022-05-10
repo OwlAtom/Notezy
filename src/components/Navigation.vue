@@ -1,11 +1,19 @@
 <template>
   <nav>
     <span v-if="loggedIn">
-    <!-- <span> -->
-      <router-link :to="{ name: 'Home' }"><img :src="homeIcon" />Dashboard</router-link>
-      <router-link :to="{ name: 'Todo' }"><img :src="todoIcon" />Todo</router-link>
-      <router-link :to="{ name: 'Notes' }"><img :src="noteIcon" />Notes</router-link>
-      <router-link :to="{ name: 'Goals' }"><img :src="goalIcon" />Goals</router-link>
+      <!-- <span> -->
+      <router-link :to="{ name: 'Home' }"
+        ><img :src="homeIcon" />Dashboard</router-link
+      >
+      <router-link :to="{ name: 'Todo' }"
+        ><img :src="todoIcon" />Todo</router-link
+      >
+      <router-link :to="{ name: 'Notes' }"
+        ><img :src="noteIcon" />Notes</router-link
+      >
+      <router-link :to="{ name: 'Goals' }"
+        ><img :src="goalIcon" />Goals</router-link
+      >
     </span>
     <span v-else>
       <router-link :to="{ name: 'Landing' }">Landing</router-link>
@@ -27,8 +35,8 @@ export default {
       homeIcon,
       todoIcon,
       noteIcon,
-      goalIcon
-    }
+      goalIcon,
+    };
   },
   data() {
     return {
@@ -41,11 +49,16 @@ export default {
     },
   },
   mounted() {
+    if (this.user.wasRehydrated) {
+      this.loggedIn = true;
+    } else {
+      this.loggedIn = false;
+    }
     // each time the user store changes, update the loggedIn variable
-    this.user.$subscribe(() => {
+    this.user.$onAction(({ args }) => {
       // set loggedIn to true if user has an email
       // should we also check if the user is logged in with google?
-      if (this.user?.email) {
+      if (args[0]?.email) {
         this.loggedIn = true;
       } else {
         this.loggedIn = false;
@@ -56,7 +69,7 @@ export default {
 </script>
 <style lang="less">
 nav {
-  padding: .8em 0;
+  padding: 0.8em 0;
   width: 100%;
   box-shadow: 0 -3px 6px 0px rgb(0 0 0 / 16%);
   border-radius: 1em 1em 0 0;
@@ -75,10 +88,10 @@ nav {
     justify-content: flex-end;
     font-size: 14px;
     width: 25%;
-    
+
     img {
       height: 2.2em;
-      margin-bottom: .4em;
+      margin-bottom: 0.4em;
     }
 
     // this class is created with the vue router
@@ -86,7 +99,8 @@ nav {
       color: var(--main-blue);
 
       img {
-        filter: invert(44%) sepia(22%) saturate(7152%) hue-rotate(220deg) brightness(93%) contrast(86%);
+        filter: invert(44%) sepia(22%) saturate(7152%) hue-rotate(220deg)
+          brightness(93%) contrast(86%); // ? saturating by 7152% is too much. maybe just change the color of the icon?
       }
     }
   }
