@@ -29,6 +29,7 @@
           <div class="todo-item">
             <p :class="{ completed: item.completed }">{{ item.name }}</p>
           </div>
+          <!-- ? evt fjerne subtasks fra overview? -->
           <template v-for="(subtask, index) in item.subtasks" :key="index">
             <div class="todo-item todo-item-subtask">
               <p :class="{ completed: subtask.completed }">
@@ -110,15 +111,12 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1em;
-  margin-top: 1em;
 }
 .todo-list {
-  width: 9em;
-  margin: 0.5em;
   padding: 1em;
   border-radius: 0.5em;
-  box-shadow: 0 -3px 6px 0px rgb(0 0 0 / 16%);
-  background-color: #fafafa;
+  box-shadow: 0 3px 10px 0px #3b252c33; // todo: Skifte farve ved merge med goals
+  background-color: #fafafa; // todo: variabel fra app.vue
   height: min-content;
 }
 h1 {
@@ -126,17 +124,13 @@ h1 {
   text-align: center;
 }
 .add-todo {
-  margin: 0.5em;
-  padding: 1em;
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 1em;
   border-radius: 0.5em;
   background-color: #fafafa;
-  box-shadow: 0 -3px 6px 0px rgb(0 0 0 / 16%);
+  box-shadow: 0 3px 10px 0px #3b252c33; // todo: Skifte farve ved merge med goals
   font-size: 1em;
   padding: 0.5em;
   cursor: pointer;
@@ -172,7 +166,7 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 1em;
     width: 300px;
     padding: 40px 30px;
     background-color: #fff;
