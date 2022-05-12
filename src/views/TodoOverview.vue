@@ -1,6 +1,7 @@
 <template>
   <div class="modal" v-if="modalActive">
     <div class="modal-content">
+      <span class="close" @click="closeTodoModal">&times;</span>
       <h2>New Todo List:</h2>
       <input
         type="text"
@@ -12,7 +13,7 @@
     </div>
   </div>
   <div class="todo">
-    <h1>todo-lists</h1>
+    <h1 class="big-title">todo-lists</h1>
     <div class="todo-lists">
       <div
         class="todo-list"
@@ -20,7 +21,7 @@
         :key="index"
         @click="openTodoList(list.id)"
       >
-        <h2>{{ list.name }}</h2>
+        <h2 class="small-title">{{ list.name }}</h2>
         <div
           class="todo-items"
           v-for="(item, index) in list.items"
@@ -74,6 +75,9 @@ export default {
         this.$refs.todoListName.focus();
       });
     },
+    closeTodoModal() {
+      this.modalActive = false;
+    },
     addTodoList() {
       const todoList = {
         name: this.$refs.todoListName.value,
@@ -102,10 +106,7 @@ export default {
 .completed {
   text-decoration: line-through;
 }
-h1 {
-  text-transform: uppercase;
-  margin-top: 1.5em;
-}
+
 .todo-lists {
   // todo: masonry layout
   display: grid;
@@ -113,15 +114,16 @@ h1 {
   grid-gap: 1em;
 }
 .todo-list {
-  padding: 1em;
+  padding: 0 1em 1em;
   border-radius: 0.5em;
   box-shadow: 0 3px 10px 0px #3b252c33; // todo: Skifte farve ved merge med goals
-  background-color: #fafafa; // todo: variabel fra app.vue
+  background-color: #f7f8f5; // todo: variabel fra app.vue
   height: min-content;
-}
-h1 {
-  font-size: 1.5em;
-  text-align: center;
+  cursor: pointer;
+
+  p {
+    line-height: 0.8;
+  }
 }
 .add-todo {
   display: flex;
@@ -130,11 +132,9 @@ h1 {
   flex-direction: column;
   border-radius: 0.5em;
   background-color: #fafafa;
-  box-shadow: 0 3px 10px 0px #3b252c33; // todo: Skifte farve ved merge med goals
   font-size: 1em;
-  padding: 0.5em;
   cursor: pointer;
-  border: 1px dashed #ccc;
+  border: 2px dashed #ccc;
 
   > span {
     // this is a fake temporary button
@@ -167,14 +167,20 @@ h1 {
     flex-direction: column;
     justify-content: center;
     border-radius: 1em;
-    width: 300px;
-    padding: 40px 30px;
+    width: 100%;
+    padding: 1.5em;
+    margin: 1.5em;
     background-color: #fff;
     h2 {
       text-align: center;
     }
     button {
       align-self: center;
+    }
+    .close {
+      color: #aaaaaa;
+      font-size: 28px;
+      font-weight: bold;
     }
   }
 }
