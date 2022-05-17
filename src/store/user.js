@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { compressToUTF16, decompressFromUTF16 } from "lz-string";
 
 // use something to persist the data between sessions
 // possible solutions:
@@ -49,6 +50,16 @@ export const userStore = defineStore("user", {
       } else {
         context.store.wasRehydrated = false;
       }
+    },
+    serializer: {
+      // called when the store is saved
+      serialize: (state) => {
+        return compressToUTF16(JSON.stringify(state));
+      },
+      // called when the store is loaded
+      deserialize: (state) => {
+        return JSON.parse(decompressFromUTF16(state));
+      },
     },
   },
 });
