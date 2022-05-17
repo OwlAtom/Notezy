@@ -1,51 +1,45 @@
 <template>
   <div class="modal-backdrop" v-show="showModal">
     <div class="modal">
-      <header class="modal-header">
-        <slot name="header"> New Goal </slot>
-        <button type="button" class="btn-close" @click="close">x</button>
-      </header>
+      <h1>New Goal</h1>
+      <label for="Name" class="small-title">Name</label>
+      <input id="Name" type="text" placeholder="Name your goal" />
+      <label for="Desc" class="small-title">Desc</label>
+      <input id="Desc" type="text" placeholder="Describe your goal" />
 
-      <section class="modal-body">
-        <slot name="body">
-          <h4>Name:</h4>
-          <input
-            type="text"
-            placeholder="Name your goal"
-            v-model="newHabit"
-          /><br />
-          <h4>Description:</h4>
-          <input
-            type="text"
-            placeholder="Describe your goal"
-            v-model="newHabit"
-          /><br />
-          <h4>Goal:</h4>
-          <p>Weekly</p>
-          <input type="radio" v-model="newHabit" /><br />
-          <p>Monthly</p>
-          <input type="radio" v-model="newHabit" /><br />
-          <input type="number" v-model="reps" />times a week<br />
-          <h4>Color:</h4>
-          <div class="usercolor" user-green></div>
-          <div class="usercolor" user-light-blue></div>
-          <!-- <div user-blue></div>
-        <div user-lavender></div>
-        <div user-red></div>
-        <div user-orange></div>
-        <div user-yellow></div> -->
-        </slot>
-      </section>
+      <label for="timesPerWeek" class="small-title">Times per week</label>
+      <input id="timesPerWeek" type="number" min="1" max="7" value="1" />
 
-      <footer class="modal-footer">
-        <slot name="footer"> This is the default footer! </slot>
-        <button type="button" class="btn-green" @click="close">
-          Close Modal
-        </button>
-      </footer>
+      <label for="specDays" class="small-title">On specific days</label>
+      <input id="specDays" type="checkbox" v-model="onSpecificDays" />
+      <div v-show="onSpecificDays">
+        <!-- loop days -->
+        <div class="day-container" v-for="day in days" :key="day">
+          <label :for="day.name" class="small-title">{{ day.name }}</label>
+          <input :id="day.name" type="checkbox" v-model="day.checked" />
+        </div>
+      </div>
+
+      <label for="colors" class="small-title">Color</label>
+      <div id="colors" class="colors">
+        <div
+          class="color"
+          v-for="color in colors"
+          :class="{ selected: color === selectedColor }"
+          :style="{ backgroundColor: color }"
+          @click="selectColor(color)"
+          :key="color"
+          :ref="color"
+        ></div>
+      </div>
+      <button type="button" class="btn" @click="saveGoal">Save goal</button>
+      <button type="button" class="btn" @click="toggleModal">
+        close modal
+      </button>
     </div>
   </div>
-  <div class="todo">
+  <!-- end of modal -->
+  <div>
     <h1 class="big-title">Goals</h1>
     <div class="week-bar">
       <div :class="{ currentDay: currentDay == 1 }">M</div>
@@ -60,11 +54,9 @@
     <template v-for="goal in goalStore.goals" :key="goal.id">
       <SingleGoal :goal="goal" />
     </template>
-    <button type="button" class="btn" @click="showModal">
+    <button type="button" class="btn" @click="toggleModal">
       Create New Goal
     </button>
-
-    <CreateGoal v-show="isModalVisible" @close="closeModal" />
   </div>
 </template>
 
@@ -84,11 +76,98 @@ export default {
   data() {
     return {
       showModal: false,
+      colors: [
+        "#68dea3",
+        "#818ef5",
+        "#8aede5",
+        "#d79ef4",
+        "#ed84a0",
+        "#f7be87",
+        "#f1de79",
+      ],
+      selectedColor: "#68dea3",
+      onSpecificDays: false,
+      days: [
+        {
+          name: "Monday",
+          checked: false,
+        },
+        {
+          name: "Tuesday",
+          checked: false,
+        },
+        {
+          name: "Wednesday",
+          checked: false,
+        },
+        {
+          name: "Thursday",
+          checked: false,
+        },
+        {
+          name: "Friday",
+          checked: false,
+        },
+        {
+          name: "Saturday",
+          checked: false,
+        },
+        {
+          name: "Sunday",
+          checked: false,
+        },
+      ],
     };
   },
   methods: {
-    togglModal() {
+    toggleModal() {
       this.showModal = !this.showModal;
+    },
+    selectColor(color) {
+      this.selectedColor = color;
+      // clear the selected color from the other colors
+      this.colors.forEach((color) => {
+        // console.log(this.$refs[color][0]);
+        this.$refs[color][0].classList.remove("selected");
+      });
+      // highlight the selected color
+      this.$refs[color][0].classList.add("selected");
+    },
+    saveGoal() {
+      // get the values from the form
+      const title = document.getElementById("Name").value;
+      const description = document.getElementById("Desc").value;
+      const repeats = document.getElementById("timesPerWeek").value;
+      const specDays = document.getElementById("specDays").checked;
+      // if specDays
+      let specificDays = [];
+      if (specDays) {
+        // loop through the days
+        this.days.forEach((day) => {
+          if (day.checked) {
+            specificDays.push(false);
+          } else {
+            specificDays.push(true);
+          }
+        });
+      } else {
+        specificDays = null;
+      }
+      const color = this.colors.indexOf(this.selectedColor);
+      // create a new goal
+      const goal = {
+        title,
+        description,
+        color,
+        plan: {
+          repeats,
+          specificDays,
+        },
+      };
+      // add the goal to the store
+      this.goalStore.addGoal(goal);
+      // close the modal
+      this.showModal = false;
     },
   },
   computed: {
@@ -105,6 +184,22 @@ export default {
 </script>
 
 <style lang="less">
+.colors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .color {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 5px;
+    cursor: pointer;
+    &.selected {
+      border: 2px solid rgb(0, 0, 0);
+    }
+  }
+}
+
 img {
   height: 1.5em;
   margin-bottom: 0.4em;
@@ -158,7 +253,12 @@ router-link {
   box-shadow: 2px 2px 20px 1px;
   overflow-x: auto;
   display: flex;
+  justify-content: center;
+  z-index: 101;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: 1em;
 }
 
 .modal-header,
@@ -196,18 +296,5 @@ router-link {
   font-weight: bold;
   color: #4aae9b;
   background: transparent;
-}
-
-.btn-green {
-  color: white;
-  background: #4aae9b;
-  border: 1px solid #4aae9b;
-  border-radius: 2px;
-}
-
-.usercolor {
-  width: 20px;
-  height: 20px;
-  border-radius: 50px;
 }
 </style>

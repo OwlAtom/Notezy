@@ -95,8 +95,6 @@ export default {
         width: 1.5em;
         margin: 0.3em 0.5em;
         border: 1px black solid;
-        &.available {
-        }
       }
     }
   }

@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { compressToUTF16, decompressFromUTF16 } from "lz-string";
 
 export const todoStore = defineStore("todo", {
   state: () => ({
@@ -104,6 +105,16 @@ export const todoStore = defineStore("todo", {
   persist: {
     afterRestore: (context) => {
       console.log(`rehydrated ${context.store.todoLists.length} todo lists`);
+    },
+    serializer: {
+      // called when the store is saved
+      serialize: (state) => {
+        return compressToUTF16(JSON.stringify(state));
+      },
+      // called when the store is loaded
+      deserialize: (state) => {
+        return JSON.parse(decompressFromUTF16(state));
+      },
     },
   },
 });

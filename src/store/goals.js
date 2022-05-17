@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
+import { compressToUTF16, decompressFromUTF16 } from "lz-string";
+import { v4 as uuidv4 } from "uuid";
 
 export const goalStore = defineStore("goals", {
   state: () => ({
     goals: [
       {
         id: 1,
-        title: "Learn Vue3",
-        description: "Learn Vue3",
+        title: "Learn Vue 3",
+        description: "Learn Vue 3",
         color: 1,
         plan: {
           specificDays: [true, false, true, true, false, true, false],
@@ -22,24 +24,24 @@ export const goalStore = defineStore("goals", {
           repeats: 3,
         },
       },
-      {
-        id: 3,
-        title: "Learn Angular",
-        description: "Learn Angular",
-        color: 3,
-        plan: {
-          specificDays: [true, false, false, true, false, true, true],
-        },
-      },
-      {
-        id: 4,
-        title: "Learn Node",
-        description: "Learn Node",
-        color: 4,
-        plan: {
-          repeats: 3,
-        },
-      },
     ],
   }),
+  actions: {
+    addGoal(goal) {
+      goal.id = uuidv4();
+      this.goals.push(goal);
+    },
+  },
+  persist: {
+    serializer: {
+      // called when the store is saved
+      serialize: (state) => {
+        return compressToUTF16(JSON.stringify(state));
+      },
+      // called when the store is loaded
+      deserialize: (state) => {
+        return JSON.parse(decompressFromUTF16(state));
+      },
+    },
+  },
 });
