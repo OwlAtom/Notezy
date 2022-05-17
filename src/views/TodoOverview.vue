@@ -122,7 +122,7 @@ export default {
   cursor: pointer;
 
   p {
-    line-height: 0.8;
+    line-height: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
