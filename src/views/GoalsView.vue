@@ -2,15 +2,13 @@
   <div class="todo">
     <h1>This is a goals page</h1>
     <div>
-      <ul>
-        <li :class="{ currentDay: currentDay == 1 }">M</li>
-        <li :class="{ currentDay: currentDay == 2 }">T</li>
-        <li :class="{ currentDay: currentDay == 3 }">W</li>
-        <li :class="{ currentDay: currentDay == 4 }">T</li>
-        <li :class="{ currentDay: currentDay == 5 }">F</li>
-        <li :class="{ currentDay: currentDay == 6 }">S</li>
-        <li :class="{ currentDay: currentDay == 0 }">S</li>
-      </ul>
+      <div :class="{ currentDay: currentDay == 1 }">M</div>
+      <div :class="{ currentDay: currentDay == 2 }">T</div>
+      <div :class="{ currentDay: currentDay == 3 }">W></div>
+      <div :class="{ currentDay: currentDay == 4 }">T></div>
+      <div :class="{ currentDay: currentDay == 5 }">F></div>
+      <div :class="{ currentDay: currentDay == 6 }">S></div>
+      <div :class="{ currentDay: currentDay == 0 }">S></div>
     </div>
     <NewGoal />
     <button type="button" class="btn" @click="showModal">
