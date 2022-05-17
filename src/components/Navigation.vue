@@ -8,7 +8,7 @@
       <router-link :to="{ name: 'Todo' }"
         ><img :src="todoIcon" />Todo</router-link
       >
-      <router-link :to="{ name: 'Notes' }"
+      <router-link :to="{ name: 'Folders' }"
         ><img :src="noteIcon" />Notes</router-link
       >
       <router-link :to="{ name: 'Goals' }"
