@@ -4,13 +4,13 @@
     <div>
       <div :class="{ currentDay: currentDay == 1 }">M</div>
       <div :class="{ currentDay: currentDay == 2 }">T</div>
-      <div :class="{ currentDay: currentDay == 3 }">W></div>
-      <div :class="{ currentDay: currentDay == 4 }">T></div>
-      <div :class="{ currentDay: currentDay == 5 }">F></div>
-      <div :class="{ currentDay: currentDay == 6 }">S></div>
-      <div :class="{ currentDay: currentDay == 0 }">S></div>
+      <div :class="{ currentDay: currentDay == 3 }">W</div>
+      <div :class="{ currentDay: currentDay == 4 }">T</div>
+      <div :class="{ currentDay: currentDay == 5 }">F</div>
+      <div :class="{ currentDay: currentDay == 6 }">S</div>
+      <div :class="{ currentDay: currentDay == 0 }">S</div>
     </div>
-    <NewGoal />
+    <SingleGoal />
     <button type="button" class="btn" @click="showModal">
       Create New Goal
     </button>
@@ -20,13 +20,14 @@
 </template>
 
 <script>
-import NewGoal from "../components/NewGoal.vue";
+import SingleGoal from "../components/SingleGoal.vue";
 import CreateGoal from "../components/CreateGoal.vue";
 import todoIcon from "../assets/icons/check_circle_black_24dp.svg";
+import { goalStore } from "../store/goals";
 
 export default {
   name: "GoalsView",
-  components: { NewGoal, CreateGoal },
+  components: { SingleGoal, CreateGoal },
   setup() {
     return {
       todoIcon,
@@ -35,6 +36,7 @@ export default {
   data() {
     return {
       isModalVisible: false,
+      colors: ["#4caf50", "#2196f3", "#ff9800", "#f44336"],
     };
   },
   methods: {
@@ -46,6 +48,10 @@ export default {
     },
   },
   computed: {
+    // goals store
+    goalStore() {
+      return goalStore();
+    },
     // getDay
     currentDay() {
       return new Date().getDay();
@@ -65,6 +71,6 @@ router-link {
 }
 
 .currentDay {
-  background-color: red;
+  background-color: var(--main-blue);
 }
 </style>
