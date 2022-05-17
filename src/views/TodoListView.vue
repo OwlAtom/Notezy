@@ -32,11 +32,11 @@
   </div>
 
   <router-link :to="{ name: 'Todo' }">&lt; Back</router-link>
+
   <div class="todo-list">
-    <h2>{{ list.name }}</h2>
+    <h2 class="big-title">{{ list.name }}</h2>
     <div class="new-todo">
       <input
-        class="task-name"
         type="text"
         placeholder="Name your task"
         ref="todoItemName"
@@ -44,8 +44,13 @@
       />
       <button class="add-todo" @click="addTodoItem">+</button>
     </div>
+
     <div class="todo-items">
-      <div v-for="(item, index) in uncheckedItems" :key="index">
+      <div
+        class="todo-items-divider"
+        v-for="(item, index) in uncheckedItems"
+        :key="index"
+      >
         <div class="todo-item">
           <input type="checkbox" :name="item.name" v-model="item.completed" />
           <p
@@ -78,26 +83,32 @@
         </div>
       </div>
     </div>
-    <h2>Done</h2>
+    <h2 class="big-title">Done</h2>
     <div class="todo-items done">
-      <div class="todo-item" v-for="(item, index) in checkedItems" :key="index">
-        <input
-          type="checkbox"
-          :name="item.name"
-          v-model="item.completed"
-          checked
-        />
-        <p
-          @mousedown="startHolding(item)"
-          @touchstart="startHolding(item)"
-          @mouseup="stopHolding"
-          @touchend="stopHolding"
-          @mouseleave="stopHolding"
-          @touchcancel="stopHolding"
-        >
-          {{ item.name }}
-        </p>
-        <button @click="removeTodoItem(item)">x</button>
+      <div
+        class="todo-items-divider"
+        v-for="(item, index) in checkedItems"
+        :key="index"
+      >
+        <div class="todo-item">
+          <input
+            type="checkbox"
+            :name="item.name"
+            v-model="item.completed"
+            checked
+          />
+          <p
+            @mousedown="startHolding(item)"
+            @touchstart="startHolding(item)"
+            @mouseup="stopHolding"
+            @touchend="stopHolding"
+            @mouseleave="stopHolding"
+            @touchcancel="stopHolding"
+          >
+            {{ item.name }}
+          </p>
+          <button @click="removeTodoItem(item)">x</button>
+        </div>
       </div>
     </div>
   </div>
@@ -210,12 +221,16 @@ export default {
 
 <style lang="less" scoped>
 .todo-list {
+  .todo-items-divider {
+    border-bottom: 1px solid #ccc;
+  }
   .todo-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
+    // border-bottom: 1px solid #ccc;
+
     input[type="checkbox"] {
       margin-right: 0.5rem;
       height: 1.5rem;
@@ -240,30 +255,23 @@ export default {
   }
   .new-todo {
     display: flex;
+    gap: 1em;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem;
     border-bottom: 1px solid #ccc;
-    .task-name {
+    input {
       width: 100%;
-      padding: 0.5rem;
-      border: 1px solid rgb(143, 143, 143);
-      border-radius: 0.5rem;
-      padding-top: 0.6em;
     }
     .add-todo {
       border: none;
       background: blue;
       border-radius: 0.2em;
-      margin-left: 0.5rem;
-      height: 2rem;
-      width: 2rem;
       cursor: pointer;
-      font-size: 1.5rem;
+      font-size: 2rem;
       color: rgb(255, 255, 255);
     }
   }
-  .todo-items.done > .todo-item > p {
+  .todo-items.done > div > .todo-item > p {
     text-decoration: line-through;
   }
   .subtasks {
