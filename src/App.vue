@@ -88,7 +88,7 @@ label {
 }
 
 input {
-  padding: 1em;
+  padding: 0.7em;
   border-radius: 0.5em;
   border-color: #3b252c80;
 }

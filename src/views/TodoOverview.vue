@@ -110,8 +110,8 @@ export default {
 .todo-lists {
   // todo: masonry layout
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1em;
+  grid-template-columns: 48% 48%;
+  grid-gap: 4%;
 }
 .todo-list {
   padding: 0 1em 1em;
@@ -123,6 +123,9 @@ export default {
 
   p {
     line-height: 0.8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 .add-todo {
