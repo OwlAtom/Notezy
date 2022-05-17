@@ -117,7 +117,7 @@ export default {
   padding: 0 1em 1em;
   border-radius: 0.5em;
   box-shadow: 0 3px 10px 0px #3b252c33; // todo: Skifte farve ved merge med goals
-  background-color: #f7f8f5; // todo: variabel fra app.vue
+  background-color: var(--secondary-bg);
   height: min-content;
   cursor: pointer;
 
@@ -134,7 +134,7 @@ export default {
   align-items: center;
   flex-direction: column;
   border-radius: 0.5em;
-  background-color: #fafafa;
+  background-color: var(--main-white);
   font-size: 1em;
   cursor: pointer;
   border: 2px dashed #ccc;

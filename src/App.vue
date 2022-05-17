@@ -19,6 +19,7 @@ export default {
   --main-blue: #626ade;
   --main-white: #fafafa;
   --main-dark-color: #3b252c;
+  --secondary-bg: #f7f8f5;
 
   /* user colors */
   --green: #68dea3;
@@ -33,6 +34,10 @@ export default {
 // google fonts
 // todo: only load font weights that are used (do this after styling is complete)
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  background-color: var(--main-white);
+}
 
 .big-title {
   // font-family: "Bebas Neue", cursive;
@@ -97,11 +102,11 @@ input {
 
 .btn {
   width: 100%;
-  background-color: red; // todo: skifte farve efter merge
+  background-color: var(--main-blue);
   border: none;
   border-radius: 0.5em;
   font-family: "Nunito Sans", sans-serif;
-  color: #fafafa; // todo: skifte farve efter merge
+  color: var(--main-white);
   padding: 1em;
   margin-top: 1em;
 }
