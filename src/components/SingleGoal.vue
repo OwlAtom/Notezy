@@ -1,15 +1,15 @@
 <template>
   <div class="wrapper">
-    <div class="goal">
-      <h4>Goal name</h4>
+    <div class="goal" :style="{ backgroundColor: color }" :id="id">
+      <h4 class="small-title">{{ title }}</h4>
       <div class="checkboxes">
-        <input type="checkbox" name="checkbox" value="day" id="day" />
-        <input type="checkbox" name="checkbox" value="day" id="day" />
-        <input type="checkbox" name="checkbox" value="day" id="day" />
-        <input type="checkbox" name="checkbox" value="day" id="day" />
-        <input type="checkbox" name="checkbox" value="day" id="day" />
-        <input type="checkbox" name="checkbox" value="day" id="day" />
-        <input type="checkbox" name="checkbox" value="day" id="day" />
+        <input
+          type="checkbox"
+          name="checkbox"
+          v-for="(day, index) in days"
+          :key="index"
+          :disabled="day"
+        />
       </div>
     </div>
   </div>
@@ -18,6 +18,58 @@
 <script>
 export default {
   name: "SingleGoal",
+  data() {
+    return {
+      colors: [
+        "#68dea3",
+        "#818ef5",
+        "#8aede5",
+        "#d79ef4",
+        "#ed84a0",
+        "#f7be87",
+        "#f1de79",
+      ],
+    };
+  },
+  computed: {
+    title() {
+      // returns the title of the prop goal
+      return this.$props.goal.title;
+    },
+    description() {
+      return this.$props.goal.description;
+    },
+    color() {
+      return this.colors[this.$props.goal.color];
+    },
+    days() {
+      //returns an array of days for the goal
+      // check if this.$props.goal.plan contains specificDays
+      if (this.$props.goal.plan.specificDays) {
+        return this.$props.goal.plan.specificDays;
+      } else {
+        // return a full week? or just today + x days?
+        return [false, false, false, false, false, false, false];
+      }
+    },
+    id() {
+      return this.$props.goal.id;
+    },
+  },
+  props: {
+    goal: {
+      type: Object,
+      default: () => ({
+        title: "",
+        description: "",
+        color: 0,
+        plan: {
+          specificDays: [false, false, false, false, false, false, false],
+        },
+        id: "",
+      }),
+    },
+  },
 };
 </script>
 
@@ -25,19 +77,28 @@ export default {
 .wrapper {
   display: flex;
   justify-content: center;
-  margin: 0 0.8em;
-}
-.goal {
-  // background-color: ;
-  height: 7.6em;
-  width: 80%;
-  margin: 1.5em 1.5em;
-  border-radius: 0.5em;
-  background-color: var(--main-blue);
-}
-input[type="checkbox"] {
-  margin: 0.3em 1em;
-  transform: scale(2.5);
-  border: 1px black solid;
+  // margin: 0 0.8em;
+  .goal {
+    height: 7.6em;
+    width: 100%;
+    // margin: 1.5em 1.5em;
+    border-radius: 0.5em;
+    // background-color: var(--main-blue);
+    .checkboxes {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      padding: 0.5em;
+      input[type="checkbox"] {
+        height: 1.5em;
+        width: 1.5em;
+        margin: 0.3em 0.5em;
+        border: 1px black solid;
+        &.available {
+        }
+      }
+    }
+  }
 }
 </style>
