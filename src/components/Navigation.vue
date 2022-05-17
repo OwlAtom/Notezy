@@ -97,7 +97,7 @@ nav {
 
     // this class is created with the vue router
     &.router-link-exact-active {
-      color: #626ade;
+      color: var(--main-blue);
 
       img {
         filter: invert(44%) sepia(22%) saturate(7152%) hue-rotate(220deg)

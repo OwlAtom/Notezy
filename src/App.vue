@@ -14,19 +14,21 @@ export default {
 </script>
 
 <style lang="less">
-//main color
-@main-blue: #626ade;
-@main-white: #fafafa;
-@main-dark-color: #3b252c;
+:root {
+  /* main colors */
+  --main-blue: #626ade;
+  --main-white: #fafafa;
+  --main-dark-color: #3b252c;
 
-//user colors
-@green: #68dea3;
-@blue: #818ef5;
-@light-blue: #8aede5;
-@lavender: #d79ef4;
-@red: #ed84a0;
-@orange: #f7be87;
-@yellow: #f1de79;
+  /* user colors */
+  --green: #68dea3;
+  --blue: #818ef5;
+  --light-blue: #8aede5;
+  --lavender: #d79ef4;
+  --red: #ed84a0;
+  --orange: #f7be87;
+  --yellow: #f1de79;
+}
 
 // google fonts
 // todo: only load font weights that are used (do this after styling is complete)
@@ -70,7 +72,6 @@ export default {
   margin-bottom: 1rem;
 }
 
-
 h1,
 h2,
 h3,
@@ -92,7 +93,12 @@ label {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  // text-align: center; we cant text align center for our entire app
-  color: #2c3e50;
+  text-align: center;
+  color: var(--main-dark-color);
+}
+
+button {
+  width: 80%;
+  height: 2em;
 }
 </style>
