@@ -15,31 +15,11 @@
   <div class="todo">
     <h1 class="big-title">todo-lists</h1>
     <div class="todo-lists">
-      <div
-        class="todo-list"
+      <SimplifiedTodoListVue
         v-for="(list, index) in todoStore.todoLists"
         :key="index"
-        @click="openTodoList(list.id)"
-      >
-        <h2 class="small-title">{{ list.name }}</h2>
-        <div
-          class="todo-items"
-          v-for="(item, index) in list.items"
-          :key="index"
-        >
-          <div class="todo-item">
-            <p :class="{ completed: item.completed }">{{ item.name }}</p>
-          </div>
-          <!-- ? evt fjerne subtasks fra overview? -->
-          <template v-for="(subtask, index) in item.subtasks" :key="index">
-            <div class="todo-item todo-item-subtask">
-              <p :class="{ completed: subtask.completed }">
-                {{ subtask.name }}
-              </p>
-            </div>
-          </template>
-        </div>
-      </div>
+        :list="list"
+      />
       <!-- this has to be a button for aria purposes -->
       <button class="add-todo" @click="openTodoModal">
         <span>+</span> New Todo List
@@ -51,9 +31,13 @@
 <script>
 import { todoStore } from "../store/todo";
 import { v4 as uuid } from "uuid";
+import SimplifiedTodoListVue from "@/components/SimplifiedTodoList.vue";
 
 export default {
   name: "TodoOverview",
+  components: {
+    SimplifiedTodoListVue,
+  },
   computed: {
     todoStore() {
       return todoStore();
@@ -87,46 +71,16 @@ export default {
       this.todoStore.addTodoList(todoList);
       this.modalActive = false;
     },
-    openTodoList(id) {
-      //remove it from the store
-      //this.todoStore.removeTodoList(id);
-
-      this.$router.push({
-        name: "TodoList",
-        params: {
-          id: id,
-        },
-      });
-    },
   },
 };
 </script>
 
 <style lang="less" scoped>
-.completed {
-  text-decoration: line-through;
-}
-
 .todo-lists {
   // todo: masonry layout
   display: grid;
   grid-template-columns: 48% 48%;
   grid-gap: 4%;
-}
-.todo-list {
-  padding: 0 1em 1em;
-  border-radius: 0.5em;
-  box-shadow: 0 3px 10px 0px #3b252c33; // todo: Skifte farve ved merge med goals
-  background-color: var(--secondary-bg);
-  height: min-content;
-  cursor: pointer;
-
-  p {
-    line-height: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 }
 .add-todo {
   display: flex;
