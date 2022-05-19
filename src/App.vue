@@ -112,7 +112,6 @@ input {
   font-family: "Nunito Sans", sans-serif;
   color: var(--main-white);
   padding: 1em;
-  margin-top: 1em;
 }
 
 #app {
@@ -124,6 +123,5 @@ input {
 
 button {
   width: 80%;
-  height: 2em;
 }
 </style>

@@ -23,7 +23,7 @@
       </div>
       <div class="new-subtask">
         <input type="text" placeholder="Add a subtask" ref="newSubtaskName" />
-        <button class="btn" @click="addSubtask">Add Subtask</button>
+        <button class="add-todo" @click="addSubtask">+</button>
       </div>
       <button class="btn" @click="saveItemEdits">
         Save Changes and close modal
@@ -262,14 +262,6 @@ export default {
     input {
       width: 100%;
     }
-    .add-todo {
-      border: none;
-      background: blue;
-      border-radius: 0.2em;
-      cursor: pointer;
-      font-size: 2rem;
-      color: rgb(255, 255, 255);
-    }
   }
   .todo-items.done > div > .todo-item > p {
     text-decoration: line-through;
@@ -319,6 +311,16 @@ export default {
     }
   }
 }
+.add-todo {
+  border: none;
+  background: var(--main-blue);
+  border-radius: 0.2em;
+  cursor: pointer;
+  font-size: 22px;
+  color: rgb(255, 255, 255);
+  width: 3em;
+  padding: 0.4em;
+}
 // stolen directly from the Vue fireblogs tutorial
 .modal {
   display: flex;
@@ -338,35 +340,14 @@ export default {
     // width: 300px;
     padding: 10px 30px;
     background-color: #fff;
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid rgb(143, 143, 143);
-      border-radius: 0.5rem;
-      padding-top: 0.6em;
-    }
-    button {
-      margin: 0.5rem;
-      align-self: center;
-    }
+    margin: 1em;
     .new-subtask {
       display: flex;
+      gap: 1em;
       align-items: center;
       justify-content: space-between;
-      padding: 0.5rem;
       margin: 1rem 0 0;
       border-bottom: 1px solid #ccc;
-      input {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1px solid rgb(143, 143, 143);
-        border-radius: 0.5rem;
-        padding-top: 0.6em;
-      }
-      button {
-        margin: 0.5rem;
-        align-self: center;
-      }
     }
   }
 }
