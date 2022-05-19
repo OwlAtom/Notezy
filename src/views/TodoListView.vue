@@ -33,7 +33,7 @@
 
   <router-link :to="{ name: 'Todo' }">&lt; Back</router-link>
 
-  <div class="todo-list">
+  <main class="todo-list">
     <h2 class="big-title">{{ list.name }}</h2>
     <div class="new-todo">
       <input
@@ -111,7 +111,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -335,7 +335,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     border-radius: 8px;
-    width: 300px;
+    // width: 300px;
     padding: 10px 30px;
     background-color: #fff;
     input {

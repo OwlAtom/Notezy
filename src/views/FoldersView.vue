@@ -24,7 +24,7 @@
       <button class="btn" @click="addFolder">Create new folder</button>
     </div>
   </div>
-  <div class="todo">
+  <main>
     <h1>All folders</h1>
     <div
       class="folders"
@@ -37,7 +37,7 @@
       </div>
     </div>
     <button @click="createNewFolder">Create new folder</button>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -94,7 +94,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .color-chooser {
   display: flex;
   flex-wrap: wrap;

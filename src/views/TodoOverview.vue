@@ -12,7 +12,7 @@
       <button class="btn" @click="addTodoList">Create new list</button>
     </div>
   </div>
-  <div class="todo">
+  <main class="todo">
     <h1 class="big-title">todo-lists</h1>
     <div class="todo-lists">
       <div
@@ -45,7 +45,7 @@
         <span>+</span> New Todo List
       </button>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>

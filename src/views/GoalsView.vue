@@ -1,5 +1,5 @@
 <template>
-  <div class="todo">
+  <main>
     <h1>This is a goals page</h1>
     <div>
       <ul>
@@ -16,9 +16,8 @@
     <button type="button" class="btn" @click="showModal">
       Create New Goal
     </button>
-
-    <CreateGoal v-show="isModalVisible" @close="closeModal" />
-  </div>
+  </main>
+  <CreateGoal v-show="isModalVisible" @close="closeModal" />
 </template>
 
 <script>

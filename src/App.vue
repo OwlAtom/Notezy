@@ -94,6 +94,10 @@ label {
   font-family: "Nunito Sans", sans-serif;
 }
 
+main {
+  margin: 1em;
+}
+
 input {
   padding: 0.7em;
   border-radius: 0.5em;
