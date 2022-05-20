@@ -1,6 +1,7 @@
 <template>
   <div class="modal" v-if="modalActive">
     <div class="modal-content">
+      <span class="close" @click="closeTodoModal">&times;</span>
       <input
         type="text"
         placeholder="Task name goes here.."
@@ -215,6 +216,9 @@ export default {
       const index = item.subtasks.indexOf(subtask);
       item.subtasks.splice(index, 1);
     },
+    closeTodoModal() {
+      this.modalActive = false;
+    },
   },
 };
 </script>
@@ -341,6 +345,11 @@ export default {
     padding: 10px 30px;
     background-color: #fff;
     margin: 1em;
+    .close {
+      color: #aaaaaa;
+      font-size: 28px;
+      font-weight: bold;
+    }
     .new-subtask {
       display: flex;
       gap: 1em;

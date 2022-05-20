@@ -22,6 +22,7 @@
         @click="openTodoList(list.id)"
       >
         <h2 class="small-title">{{ list.name }}</h2>
+        <div v-if="!list.items.length">No tasks in list yet</div>
         <div
           class="todo-items"
           v-for="(item, index) in list.items"
@@ -135,9 +136,9 @@ export default {
   flex-direction: column;
   border-radius: 0.5em;
   background-color: var(--main-white);
-  font-size: 1em;
   cursor: pointer;
   border: 2px dashed #ccc;
+  width: 100%;
 
   > span {
     // this is a fake temporary button
