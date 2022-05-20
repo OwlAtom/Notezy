@@ -1,6 +1,7 @@
 <template>
   <div class="modal" v-if="modalActive">
     <div class="modal-content">
+      <span class="close" @click="closeTodoModal">&times;</span>
       <h2>New Todo List:</h2>
       <input
         type="text"
@@ -11,8 +12,8 @@
       <button class="btn" @click="addTodoList">Create new list</button>
     </div>
   </div>
-  <div class="todo">
-    <h1>todo-lists</h1>
+  <main class="todo">
+    <h1 class="big-title">todo-lists</h1>
     <div class="todo-lists">
       <div
         class="todo-list"
@@ -20,7 +21,7 @@
         :key="index"
         @click="openTodoList(list.id)"
       >
-        <h2>{{ list.name }}</h2>
+        <h2 class="small-title">{{ list.name }}</h2>
         <div
           class="todo-items"
           v-for="(item, index) in list.items"
@@ -29,6 +30,7 @@
           <div class="todo-item">
             <p :class="{ completed: item.completed }">{{ item.name }}</p>
           </div>
+          <!-- ? evt fjerne subtasks fra overview? -->
           <template v-for="(subtask, index) in item.subtasks" :key="index">
             <div class="todo-item todo-item-subtask">
               <p :class="{ completed: subtask.completed }">
@@ -43,7 +45,7 @@
         <span>+</span> New Todo List
       </button>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -73,6 +75,9 @@ export default {
         this.$refs.todoListName.focus();
       });
     },
+    closeTodoModal() {
+      this.modalActive = false;
+    },
     addTodoList() {
       const todoList = {
         name: this.$refs.todoListName.value,
@@ -101,46 +106,38 @@ export default {
 .completed {
   text-decoration: line-through;
 }
-h1 {
-  text-transform: uppercase;
-  margin-top: 1.5em;
-}
+
 .todo-lists {
   // todo: masonry layout
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1em;
-  margin-top: 1em;
+  grid-template-columns: 48% 48%;
+  grid-gap: 4%;
 }
 .todo-list {
-  width: 9em;
-  margin: 0.5em;
-  padding: 1em;
+  padding: 0 1em 1em;
   border-radius: 0.5em;
-  box-shadow: 0 -3px 6px 0px rgb(0 0 0 / 16%);
-  background-color: #fafafa;
+  box-shadow: 0 3px 10px 0px #3b252c33; // todo: Skifte farve ved merge med goals
+  background-color: var(--secondary-bg);
   height: min-content;
-}
-h1 {
-  font-size: 1.5em;
-  text-align: center;
+  cursor: pointer;
+
+  p {
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 .add-todo {
-  margin: 0.5em;
-  padding: 1em;
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 1em;
   border-radius: 0.5em;
-  background-color: #fafafa;
-  box-shadow: 0 -3px 6px 0px rgb(0 0 0 / 16%);
+  background-color: var(--main-white);
   font-size: 1em;
-  padding: 0.5em;
   cursor: pointer;
-  border: 1px dashed #ccc;
+  border: 2px dashed #ccc;
 
   > span {
     // this is a fake temporary button
@@ -172,15 +169,21 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-radius: 8px;
-    width: 300px;
-    padding: 40px 30px;
+    border-radius: 1em;
+    width: 100%;
+    padding: 1.5em;
+    margin: 1.5em;
     background-color: #fff;
     h2 {
       text-align: center;
     }
     button {
       align-self: center;
+    }
+    .close {
+      color: #aaaaaa;
+      font-size: 28px;
+      font-weight: bold;
     }
   }
 }
