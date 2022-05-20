@@ -6,7 +6,7 @@ export const documentStore = defineStore("documents", {
     folders: [
       {
         name: "new",
-        color: "#e91e63",
+        color: "#d79ef4",
         documents: [],
         id: "e138db80-aa86-49a2-ba9a-46fa5dc6111f",
       },
