@@ -41,7 +41,8 @@
     "jest": "^27.0.5",
     "less": "^4.0.0",
     "less-loader": "^8.0.0",
-    "vue-cli-plugin-pinia": "~0.1.2"
+    "vue-cli-plugin-pinia": "~0.1.2",
+    "vue-cli-plugin-webpack-bundle-analyzer": "~4.0.0"
   },
   "eslintConfig": {
     "root": true,
