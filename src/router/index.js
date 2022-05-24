@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
-import LandingView from "../views/LandingView.vue";
-import Dashboard from "../views/Dashboard.vue";
-import TodoOverview from "../views/TodoOverview.vue";
-import FoldersView from "../views/FoldersView.vue";
-import GoalsView from "../views/GoalsView.vue";
-import TodoListView from "../views/TodoListView.vue";
-import DocumentsView from "../views/DocumentsView.vue";
-import DocumentView from "../views/DocumentView.vue";
+const LandingView = () => import("../views/LandingView.vue");
+const Dashboard = () => import("../views/Dashboard.vue");
+const TodoOverview = () => import("../views/TodoOverview.vue");
+const FoldersView = () => import("../views/FoldersView.vue");
+const GoalsView = () => import("../views/GoalsView.vue");
+const TodoListView = () => import("../views/TodoListView.vue");
+const DocumentsView = () => import("../views/DocumentsView.vue");
+const DocumentView = () => import("../views/DocumentView.vue");
 
 const routes = [
   {
