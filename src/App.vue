@@ -107,8 +107,11 @@ input {
   border-radius: 0.5em;
   font-family: "Nunito Sans", sans-serif;
   color: var(--main-white);
-  padding: 1em;
+  padding: 1.5em;
   margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #app {

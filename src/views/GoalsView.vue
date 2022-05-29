@@ -34,12 +34,12 @@
       </div>
       <button type="button" class="btn" @click="saveGoal">Save goal</button>
       <button type="button" class="btn" @click="toggleModal">
-        close modal
+        Close modal
       </button>
     </div>
   </div>
   <!-- end of modal -->
-  <div>
+  <div class="goalsview-wrapper">
     <h1 class="big-title">Goals</h1>
     <div class="week-bar">
       <div :class="{ currentDay: currentDay == 1 }">M</div>
@@ -184,13 +184,17 @@ export default {
 </script>
 
 <style lang="less">
+.goalsview-wrapper {
+  margin: 1.3em;
+}
+
 .colors {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   .color {
-    width: 50px;
-    height: 50px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     margin: 5px;
     cursor: pointer;
@@ -220,8 +224,10 @@ router-link {
   color: var(--main-white);
   border-radius: 7px;
   box-shadow: 0 3px 10px 0px #3b252c33;
+  margin-bottom: 1.5em;
   :last-child {
     border: none;
+    border-radius: 0 7px 7px 0;
   }
 
   div {
@@ -259,6 +265,7 @@ router-link {
   width: 100%;
   height: 100%;
   margin: 1em;
+  padding: 1em;
 }
 
 .modal-header,
