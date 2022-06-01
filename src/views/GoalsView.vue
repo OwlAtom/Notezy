@@ -54,7 +54,7 @@
     <template v-for="goal in goalStore.goals" :key="goal.id">
       <SingleGoal :goal="goal" />
     </template>
-    <button type="button" class="btn" @click="toggleModal">
+    <button type="button" class="btn btn-alt" @click="toggleModal">
       Create New Goal
     </button>
   </div>
