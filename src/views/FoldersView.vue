@@ -40,7 +40,9 @@
       </div>
     </div>
 
-    <button @click="createNewFolder">Create new folder</button>
+    <button class="btn btn-alt" @click="createNewFolder">
+      Create new folder
+    </button>
   </main>
 </template>
 

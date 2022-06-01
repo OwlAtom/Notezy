@@ -117,7 +117,7 @@ input {
 
 .btn-alt {
   background-color: initial;
-  border: 1px solid var(--main-blue);
+  border: 2px solid var(--main-blue);
   color: var(--main-dark-color);
 }
 
