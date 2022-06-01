@@ -1,9 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LandingView from "../views/LandingView.vue";
 import Dashboard from "../views/Dashboard.vue";
-import TodoView from "../views/TodoView.vue";
-import NotesView from "../views/NotesView.vue";
+import TodoOverview from "../views/TodoOverview.vue";
+import FoldersView from "../views/FoldersView.vue";
 import GoalsView from "../views/GoalsView.vue";
+import TodoListView from "../views/TodoListView.vue";
+import DocumentsView from "../views/DocumentsView.vue";
+import DocumentView from "../views/DocumentView.vue";
 
 const routes = [
   {
@@ -12,19 +15,34 @@ const routes = [
     component: LandingView,
   },
   {
-    path: "/",
+    path: "/home",
     name: "Home",
     component: Dashboard,
   },
   {
     path: "/todo",
     name: "Todo",
-    component: TodoView,
+    component: TodoOverview,
   },
   {
-    path: "/notes",
-    name: "Notes",
-    component: NotesView,
+    path: "/todoList/:id",
+    name: "TodoList",
+    component: TodoListView,
+  },
+  {
+    path: "/folders",
+    name: "Folders",
+    component: FoldersView,
+  },
+  {
+    path: "/folder/:id",
+    name: "Documents",
+    component: DocumentsView,
+  },
+  {
+    path: "/folder/:folderID/document/:id",
+    name: "Document",
+    component: DocumentView,
   },
   {
     path: "/goals",
