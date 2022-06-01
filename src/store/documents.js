@@ -27,6 +27,8 @@ export const documentStore = defineStore("documents", {
         title: title,
         id: uuidv4(),
         content: "",
+        // Skal vi tilføje Timestamp?
+        // Og hvad med tags?
       });
     },
     getDocuments(id) {

@@ -25,7 +25,7 @@
     </div>
   </div>
   <main>
-    <h1>All folders</h1>
+    <h1 class="big-title">All folders</h1>
     <div class="folders">
       <div
         class="folder"
