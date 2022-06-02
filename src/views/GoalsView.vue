@@ -2,12 +2,12 @@
   <div class="modal-backdrop" v-show="showModal">
     <div class="modal">
       <h1>New Goal</h1>
-      <label for="Name" class="small-title">Name</label>
+      <label for="Name" class="small-title">Name:</label>
       <input id="Name" type="text" placeholder="Name your goal" />
-      <label for="Desc" class="small-title">Desc</label>
+      <label for="Desc" class="small-title">Desc:</label>
       <input id="Desc" type="text" placeholder="Describe your goal" />
 
-      <label for="timesPerWeek" class="small-title">Times per week</label>
+      <label for="timesPerWeek" class="small-title">Times per week:</label>
       <input id="timesPerWeek" type="number" min="1" max="7" value="1" />
 
       <label for="specDays" class="small-title">On specific days</label>
