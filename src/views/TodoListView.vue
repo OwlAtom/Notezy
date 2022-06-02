@@ -32,10 +32,15 @@
     </div>
   </div>
 
-  <router-link :to="{ name: 'Todo' }">&lt; Back</router-link>
-
   <main class="todo-list">
-    <h2 class="big-title">{{ list.name }}</h2>
+    <header>
+      <router-link :to="{ name: 'Todo' }"
+        ><span><img :src="backIcon" /></span
+      ></router-link>
+      <h1 class="big-title">{{ list.name }}</h1>
+      <span><img :src="settingsIcon" /></span>
+    </header>
+
     <div class="new-todo">
       <input
         type="text"
@@ -118,9 +123,17 @@
 <script>
 import { todoStore } from "../store/todo";
 import { v4 as uuid } from "uuid";
+import backIcon from "../assets/icons/arrow_back.svg";
+import settingsIcon from "../assets/icons/settings.svg";
 
 export default {
   name: "TodoListView",
+  setup() {
+    return {
+      backIcon,
+      settingsIcon,
+    };
+  },
   computed: {
     todoStore() {
       return todoStore();
@@ -224,6 +237,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    width: 2.5em;
+  }
+}
+
 .todo-list {
   .todo-items-divider {
     border-bottom: 1px solid #ccc;

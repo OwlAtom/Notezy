@@ -22,7 +22,7 @@
       />
       <!-- this has to be a button for aria purposes -->
       <button class="add-todo" @click="openTodoModal">
-        <span>+</span> New Todo List
+        <span><img :src="addIcon" /></span> New Todo List
       </button>
     </div>
   </main>
@@ -32,9 +32,15 @@
 import { todoStore } from "../store/todo";
 import { v4 as uuid } from "uuid";
 import SimplifiedTodoListVue from "@/components/SimplifiedTodoList.vue";
+import addIcon from "../assets/icons/add_circle.svg";
 
 export default {
   name: "TodoOverview",
+  setup() {
+    return {
+      addIcon,
+    };
+  },
   components: {
     SimplifiedTodoListVue,
   },
@@ -84,27 +90,18 @@ export default {
 }
 .add-todo {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
   border-radius: 0.5em;
   background-color: var(--main-white);
+  color: var(--faded-dark);
   cursor: pointer;
   border: 2px dashed #ccc;
   width: 100%;
 
-  > span {
-    // this is a fake temporary button
-    // please change to a svg when styling rest of page
-    font-size: 3.5em;
-    border-radius: 100%;
-    width: 0.5em;
-    height: 0.5em;
-    line-height: 0.5em;
-    text-align: center;
-    padding: 0.2em;
-    color: rgb(111, 111, 111);
-    border: 4px solid rgb(111, 111, 111);
+  img {
+    width: 4em;
   }
 }
 

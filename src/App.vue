@@ -20,6 +20,7 @@ export default {
   --main-white: #fafafa;
   --main-dark-color: #3b252c;
   --secondary-bg: #f7f8f5;
+  --faded-dark: #9b9094; //svarer til 50% main dark
 
   /* user colors */
   --green: #68dea3;
@@ -43,7 +44,6 @@ body {
   // font-family: "Bebas Neue", cursive;
   font-size: 2.5rem;
   font-weight: 400;
-  margin-bottom: 1rem;
   text-align: center;
 }
 .medium-title {
