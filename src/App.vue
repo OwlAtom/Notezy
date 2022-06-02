@@ -58,6 +58,10 @@ body {
   font-weight: 700;
 }
 
+.smaller-title {
+  font-size: 1rem;
+}
+
 // .big-text {
 //   font-family: "Nunito Sans", sans-serif;
 //   font-size: 0.5rem;

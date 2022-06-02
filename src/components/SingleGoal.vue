@@ -92,8 +92,10 @@ export default {
       flex-direction: row;
       padding: 0.5em;
       input[type="checkbox"] {
-        height: 1.5em;
-        width: 1.5em;
+        // height: 1.5em;
+        // width: 1.5em;
+        width: 25px;
+        height: 25px;
         margin: 0.3em 0.5em;
         border: 1px black solid;
       }

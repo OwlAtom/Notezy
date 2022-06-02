@@ -12,10 +12,11 @@
 
       <label for="specDays" class="small-title">On specific days</label>
       <input id="specDays" type="checkbox" v-model="onSpecificDays" />
-      <div v-show="onSpecificDays">
+      <div v-show="onSpecificDays" class="day-container smaller-title">
+        Choose the days:
         <!-- loop days -->
-        <div class="day-container" v-for="day in days" :key="day">
-          <label :for="day.name" class="small-title">{{ day.name }}</label>
+        <div class="individual-day" v-for="day in days" :key="day">
+          <label :for="day.name" class="smaller-title">{{ day.name }}</label>
           <input :id="day.name" type="checkbox" v-model="day.checked" />
         </div>
       </div>
@@ -91,31 +92,31 @@ export default {
       onSpecificDays: false,
       days: [
         {
-          name: "Monday",
+          name: "M",
           checked: false,
         },
         {
-          name: "Tuesday",
+          name: "T",
           checked: false,
         },
         {
-          name: "Wednesday",
+          name: "W",
           checked: false,
         },
         {
-          name: "Thursday",
+          name: "T",
           checked: false,
         },
         {
-          name: "Friday",
+          name: "F",
           checked: false,
         },
         {
-          name: "Saturday",
+          name: "S",
           checked: false,
         },
         {
-          name: "Sunday",
+          name: "S",
           checked: false,
         },
       ],
@@ -292,6 +293,21 @@ router-link {
 .modal-body {
   position: relative;
   padding: 20px 10px;
+}
+
+.day-container {
+  display: flex;
+  height: 7.6em;
+  align-items: center;
+  background-color: var(--secondary-bg);
+  padding: 0 1.6em;
+}
+
+.individual-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1.3em;
 }
 
 .btn-close {
