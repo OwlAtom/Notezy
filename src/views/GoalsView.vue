@@ -185,7 +185,7 @@ export default {
 
 <style lang="less">
 .goalsview-wrapper {
-  margin: 1.3em;
+  margin: 1.5em;
 }
 
 .colors {

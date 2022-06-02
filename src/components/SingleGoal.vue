@@ -83,6 +83,7 @@ export default {
     width: 100%;
     // margin: 1.5em 1.5em;
     border-radius: 0.5em;
+    margin-bottom: 1em;
     // background-color: var(--main-blue);
     .checkboxes {
       display: flex;
