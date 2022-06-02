@@ -33,7 +33,7 @@
         ></div>
       </div>
       <button type="button" class="btn" @click="saveGoal">Save goal</button>
-      <button type="button" class="btn" @click="toggleModal">
+      <button type="button" class="btn btn-border" @click="toggleModal">
         Close modal
       </button>
     </div>
@@ -54,8 +54,8 @@
     <template v-for="goal in goalStore.goals" :key="goal.id">
       <SingleGoal :goal="goal" />
     </template>
-    <button type="button" class="btn btn-alt" @click="toggleModal">
-      Create New Goal
+    <button type="button" class="btn btn-alt btn-border" @click="toggleModal">
+      <img :src="plusIcon" /> Create New Goal
     </button>
   </div>
 </template>
@@ -63,6 +63,7 @@
 <script>
 import SingleGoal from "../components/SingleGoal.vue";
 import todoIcon from "../assets/icons/check_circle_black_24dp.svg";
+import plusIcon from "../assets/icons/plus_circle_black_24dp.svg";
 import { goalStore } from "../store/goals";
 
 export default {
@@ -71,6 +72,7 @@ export default {
   setup() {
     return {
       todoIcon,
+      plusIcon,
     };
   },
   data() {
