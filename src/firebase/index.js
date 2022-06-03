@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// import "firebase/compat/firestore";
-// import "firebase/auth";
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -9,6 +8,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyARbuR0FhM2OWfKFEMNFykUxNKiisw_jeY",
   authDomain: "ucn-notezy.firebaseapp.com",
+  databaseURL: "http://localhost:9000/?ns=ucn-notezy", // emulator
+  // databaseURL: "https://ucn-notezy-default-rtdb.europe-west1.firebasedatabase.app/", // real
   projectId: "ucn-notezy",
   storageBucket: "ucn-notezy.appspot.com",
   messagingSenderId: "24839556954",
@@ -16,7 +17,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 // use this to check if the user is logged in
 // or use the pinia store to check the fields "email" and "displayName"
@@ -31,11 +32,5 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// // utils
-// const db = firebase.firestore();
-
-// // collection references
-// const documentsCollection = db.collection("documents");
-
-// // export utils/refs
-// export { db, auth, documentsCollection };
+// export utils/refs
+export { app, auth };
