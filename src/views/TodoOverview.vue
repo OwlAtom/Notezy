@@ -55,7 +55,19 @@ export default {
     };
   },
   mounted() {
-    // this.todoLists = this.todoLists;
+    // when page is hidden, save to firebase
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        this.todoStore.saveToFirebase();
+      }
+    });
+    // https://caniuse.com/?search=visibilitychange
+    // 😡🍎
+    // https://caniuse.com/?search=pagehide
+    window.addEventListener("pagehide", () => {
+      debugger;
+      this.todoStore.saveToFirebase();
+    });
   },
   methods: {
     openTodoModal() {
