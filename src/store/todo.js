@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import { getAuth } from "firebase/auth";
+import { compressToUTF16, decompressFromUTF16 } from "lz-string";
 
 const db = getDatabase();
 const auth = getAuth();
