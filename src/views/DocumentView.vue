@@ -1,5 +1,5 @@
 <template>
-  {{ document.title }}
+  <h1 class="big-title">{{ document.title }}</h1>
   {{ document.content }}
   <div ref="editor">
     <p>Hello World!</p>
@@ -38,4 +38,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="less" scoped>
+body {
+  background-color: var(--secondary-bg);
+}
+</style>
