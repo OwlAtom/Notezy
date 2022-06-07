@@ -194,7 +194,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .goalsview-wrapper {
   margin: 1.5em;
 }
