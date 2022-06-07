@@ -1,7 +1,7 @@
 <template>
   <div class="modal" v-if="modalActive">
     <div class="modal-content">
-      <span class="close" @click="closeTodoModal">&times;</span>
+      <div class="close" @click="closeTodoModal">&times;</div>
       <h2>New Todo List:</h2>
       <input
         type="text"
@@ -147,6 +147,8 @@ export default {
       color: #aaaaaa;
       font-size: 28px;
       font-weight: bold;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 }
