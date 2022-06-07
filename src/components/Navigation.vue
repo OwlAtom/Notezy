@@ -67,7 +67,7 @@ export default {
   },
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 nav {
   padding: 0.8em 0;
   width: 100%;

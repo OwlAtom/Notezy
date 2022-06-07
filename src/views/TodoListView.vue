@@ -1,6 +1,7 @@
 <template>
   <div class="modal" v-if="modalActive">
     <div class="modal-content">
+      <span class="close" @click="closeTodoModal">&times;</span>
       <input
         type="text"
         placeholder="Task name goes here.."
@@ -23,7 +24,7 @@
       </div>
       <div class="new-subtask">
         <input type="text" placeholder="Add a subtask" ref="newSubtaskName" />
-        <button class="btn" @click="addSubtask">Add Subtask</button>
+        <button class="add-todo" @click="addSubtask">+</button>
       </div>
       <button class="btn" @click="saveItemEdits">
         Save Changes and close modal
@@ -31,10 +32,15 @@
     </div>
   </div>
 
-  <router-link :to="{ name: 'Todo' }">&lt; Back</router-link>
-
   <main class="todo-list">
-    <h2 class="big-title">{{ list.name }}</h2>
+    <header>
+      <router-link :to="{ name: 'Todo' }"
+        ><span><img :src="backIcon" /></span
+      ></router-link>
+      <h1 class="big-title">{{ list.name }}</h1>
+      <span><img :src="settingsIcon" /></span>
+    </header>
+
     <div class="new-todo">
       <input
         type="text"
@@ -117,9 +123,17 @@
 <script>
 import { todoStore } from "../store/todo";
 import { v4 as uuid } from "uuid";
+import backIcon from "../assets/icons/arrow_back.svg";
+import settingsIcon from "../assets/icons/settings.svg";
 
 export default {
   name: "TodoListView",
+  setup() {
+    return {
+      backIcon,
+      settingsIcon,
+    };
+  },
   computed: {
     todoStore() {
       return todoStore();
@@ -215,11 +229,24 @@ export default {
       const index = item.subtasks.indexOf(subtask);
       item.subtasks.splice(index, 1);
     },
+    closeTodoModal() {
+      this.modalActive = false;
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    width: 2.5em;
+  }
+}
+
 .todo-list {
   .todo-items-divider {
     border-bottom: 1px solid #ccc;
@@ -261,14 +288,6 @@ export default {
     border-bottom: 1px solid #ccc;
     input {
       width: 100%;
-    }
-    .add-todo {
-      border: none;
-      background: blue;
-      border-radius: 0.2em;
-      cursor: pointer;
-      font-size: 2rem;
-      color: rgb(255, 255, 255);
     }
   }
   .todo-items.done > div > .todo-item > p {
@@ -319,6 +338,16 @@ export default {
     }
   }
 }
+.add-todo {
+  border: none;
+  background: var(--main-blue);
+  border-radius: 0.2em;
+  cursor: pointer;
+  font-size: 22px;
+  color: rgb(255, 255, 255);
+  width: 3em;
+  padding: 0.4em;
+}
 // stolen directly from the Vue fireblogs tutorial
 .modal {
   display: flex;
@@ -338,35 +367,19 @@ export default {
     // width: 300px;
     padding: 10px 30px;
     background-color: #fff;
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid rgb(143, 143, 143);
-      border-radius: 0.5rem;
-      padding-top: 0.6em;
-    }
-    button {
-      margin: 0.5rem;
-      align-self: center;
+    margin: 1em;
+    .close {
+      color: #aaaaaa;
+      font-size: 28px;
+      font-weight: bold;
     }
     .new-subtask {
       display: flex;
+      gap: 1em;
       align-items: center;
       justify-content: space-between;
-      padding: 0.5rem;
       margin: 1rem 0 0;
       border-bottom: 1px solid #ccc;
-      input {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1px solid rgb(143, 143, 143);
-        border-radius: 0.5rem;
-        padding-top: 0.6em;
-      }
-      button {
-        margin: 0.5rem;
-        align-self: center;
-      }
     }
   }
 }

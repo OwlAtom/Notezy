@@ -15,34 +15,14 @@
   <main class="todo">
     <h1 class="big-title">todo-lists</h1>
     <div class="todo-lists">
-      <div
-        class="todo-list"
+      <SimplifiedTodoListVue
         v-for="(list, index) in todoStore.todoLists"
         :key="index"
-        @click="openTodoList(list.id)"
-      >
-        <h2 class="small-title">{{ list.name }}</h2>
-        <div
-          class="todo-items"
-          v-for="(item, index) in list.items"
-          :key="index"
-        >
-          <div class="todo-item">
-            <p :class="{ completed: item.completed }">{{ item.name }}</p>
-          </div>
-          <!-- ? evt fjerne subtasks fra overview? -->
-          <template v-for="(subtask, index) in item.subtasks" :key="index">
-            <div class="todo-item todo-item-subtask">
-              <p :class="{ completed: subtask.completed }">
-                {{ subtask.name }}
-              </p>
-            </div>
-          </template>
-        </div>
-      </div>
+        :list="list"
+      />
       <!-- this has to be a button for aria purposes -->
       <button class="add-todo" @click="openTodoModal">
-        <span>+</span> New Todo List
+        <span><img :src="addIcon" /></span> New Todo List
       </button>
     </div>
   </main>
@@ -51,9 +31,19 @@
 <script>
 import { todoStore } from "../store/todo";
 import { v4 as uuid } from "uuid";
+import SimplifiedTodoListVue from "@/components/SimplifiedTodoList.vue";
+import addIcon from "../assets/icons/add_circle.svg";
 
 export default {
   name: "TodoOverview",
+  setup() {
+    return {
+      addIcon,
+    };
+  },
+  components: {
+    SimplifiedTodoListVue,
+  },
   computed: {
     todoStore() {
       return todoStore();
@@ -65,7 +55,19 @@ export default {
     };
   },
   mounted() {
-    // this.todoLists = this.todoLists;
+    // when page is hidden, save to firebase
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        this.todoStore.saveToFirebase();
+      }
+    });
+    // https://caniuse.com/?search=visibilitychange
+    // 😡🍎
+    // https://caniuse.com/?search=pagehide
+    window.addEventListener("pagehide", () => {
+      debugger;
+      this.todoStore.saveToFirebase();
+    });
   },
   methods: {
     openTodoModal() {
@@ -87,70 +89,31 @@ export default {
       this.todoStore.addTodoList(todoList);
       this.modalActive = false;
     },
-    openTodoList(id) {
-      //remove it from the store
-      //this.todoStore.removeTodoList(id);
-
-      this.$router.push({
-        name: "TodoList",
-        params: {
-          id: id,
-        },
-      });
-    },
   },
 };
 </script>
 
 <style lang="less" scoped>
-.completed {
-  text-decoration: line-through;
-}
-
 .todo-lists {
   // todo: masonry layout
   display: grid;
   grid-template-columns: 48% 48%;
   grid-gap: 4%;
 }
-.todo-list {
-  padding: 0 1em 1em;
-  border-radius: 0.5em;
-  box-shadow: 0 3px 10px 0px #3b252c33; // todo: Skifte farve ved merge med goals
-  background-color: var(--secondary-bg);
-  height: min-content;
-  cursor: pointer;
-
-  p {
-    line-height: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
 .add-todo {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
   border-radius: 0.5em;
   background-color: var(--main-white);
-  font-size: 1em;
+  color: var(--faded-dark);
   cursor: pointer;
   border: 2px dashed #ccc;
+  width: 100%;
 
-  > span {
-    // this is a fake temporary button
-    // please change to a svg when styling rest of page
-    font-size: 3.5em;
-    border-radius: 100%;
-    width: 0.5em;
-    height: 0.5em;
-    line-height: 0.5em;
-    text-align: center;
-    padding: 0.2em;
-    color: rgb(111, 111, 111);
-    border: 4px solid rgb(111, 111, 111);
+  img {
+    width: 4em;
   }
 }
 
