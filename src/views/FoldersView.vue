@@ -25,18 +25,24 @@
     </div>
   </div>
   <main>
-    <h1>All folders</h1>
-    <div
-      class="folders"
-      v-for="(folder, index) in documentStore.folders"
-      :key="index"
-      @click="openFolder(folder.id)"
-    >
-      <div class="folder-name" :style="{ backgroundColor: folder.color }">
-        {{ folder.name }}
+    <h1 class="big-title">All folders</h1>
+    <div class="folders">
+      <div
+        class="folder"
+        v-for="(folder, index) in documentStore.folders"
+        :key="index"
+        @click="openFolder(folder.id)"
+        :style="{ backgroundColor: folder.color }"
+      >
+        <div class="folder-name">
+          {{ folder.name }}
+        </div>
       </div>
     </div>
-    <button @click="createNewFolder">Create new folder</button>
+
+    <button class="btn btn-alt" @click="createNewFolder">
+      Create new folder
+    </button>
   </main>
 </template>
 
@@ -72,22 +78,13 @@ export default {
       modalActive: false,
       color: null,
       colors: [
-        "#f44336",
-        "#e91e63",
-        "#9c27b0",
-        "#673ab7",
-        "#3f51b5",
-        "#2196f3",
-        "#03a9f4",
-        "#00bcd4",
-        "#009688",
-        "#4caf50",
-        "#8bc34a",
-        "#cddc39",
-        "#ffeb3b",
-        "#ffc107",
-        "#ff9800",
-        "#ff5722",
+        "#68dea3",
+        "#818ef5",
+        "#8aede5",
+        "#d79ef4",
+        "#ed84a0",
+        "#f7be87",
+        "#f1de79",
       ],
     };
   },
@@ -109,22 +106,15 @@ export default {
   }
 }
 .folders {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  .folder {
+    width: 100%;
+    margin-bottom: 1em;
+    border-radius: 0.5em;
+  }
   .folder-name {
-    width: 5em;
-    height: 5em;
-    border: 1px solid #ccc;
-    border-radius: 5%;
-    margin: 5px;
     cursor: pointer;
-    text-align: center;
-    line-height: 5em;
-    color: white;
-    text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000,
-      1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;
-    font-size: 1.5em;
+    padding: 1em;
+    color: var(--main-dark-color);
   }
 }
 // stolen directly from the Vue fireblogs tutorial

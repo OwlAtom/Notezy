@@ -1,5 +1,6 @@
 <template>
   <main>
+    <h1 class="big-title">Notes</h1>
     <router-link :to="{ name: 'Folders' }">&lt; Back</router-link>
     <br />
     <input type="text" placeholder="Name your document" v-model="title" />
@@ -13,7 +14,8 @@
             name: 'Document',
             params: { id: doc.id, folderID: this.$route.params.id },
           }"
-          >{{ doc.title }} >
+          >{{ doc.title }}
+          <span>></span>
         </router-link>
       </li>
     </ul>
@@ -48,4 +50,21 @@ export default {
 };
 </script>
 
-<style lang="less"></style>
+<style lang="less" scoped>
+ul {
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    border-bottom: 1px solid var(--main-dark-color);
+
+    a {
+      text-decoration: none;
+      padding: 0.7em 0;
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+    }
+  }
+}
+</style>

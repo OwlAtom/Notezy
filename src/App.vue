@@ -115,6 +115,12 @@ input {
   margin-top: 1em;
 }
 
+.btn-alt {
+  background-color: initial;
+  border: 2px solid var(--main-blue);
+  color: var(--main-dark-color);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
