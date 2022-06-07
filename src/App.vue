@@ -20,6 +20,7 @@ export default {
   --main-white: #fafafa;
   --main-dark-color: #3b252c;
   --secondary-bg: #f7f8f5;
+  --faded-dark: #9b9094; //svarer til 50% main dark
 
   /* user colors */
   --green: #68dea3;
@@ -43,7 +44,6 @@ body {
   // font-family: "Bebas Neue", cursive;
   font-size: 2.5rem;
   font-weight: 400;
-  margin-bottom: 1rem;
   text-align: center;
 }
 .medium-title {
@@ -56,6 +56,10 @@ body {
   font-family: "Nunito Sans", sans-serif;
   font-size: 1.2rem;
   font-weight: 700;
+}
+
+.smaller-title {
+  font-size: 1rem;
 }
 
 // .big-text {
@@ -95,7 +99,7 @@ label {
 }
 
 main {
-  margin: 1em;
+  margin: 0 1em 7em;
 }
 
 input {
@@ -111,8 +115,17 @@ input {
   border-radius: 0.5em;
   font-family: "Nunito Sans", sans-serif;
   color: var(--main-white);
-  padding: 1em;
+  padding: 1.2em;
   margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-border {
+  background-color: transparent;
+  border: 2px solid var(--main-blue);
+  color: var(--main-dark-color);
 }
 
 .btn-alt {
@@ -130,6 +143,5 @@ input {
 
 button {
   width: 80%;
-  height: 2em;
 }
 </style>
