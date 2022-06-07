@@ -6,6 +6,12 @@
 npm install
 ```
 
+### Firebase emulators
+
+```
+npm run emulators
+```
+
 ### Compiles and hot-reloads for development
 
 ```
