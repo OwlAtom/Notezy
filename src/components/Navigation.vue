@@ -73,7 +73,7 @@ nav {
   width: 100%;
   box-shadow: 0 -3px 6px 0px rgb(0 0 0 / 16%);
   border-radius: 1em 1em 0 0;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   text-align: center;
   background-color: var(--main-white);

@@ -99,7 +99,7 @@ label {
 }
 
 main {
-  margin: 1em;
+  margin: 0 1em 7em;
 }
 
 input {
@@ -115,7 +115,7 @@ input {
   border-radius: 0.5em;
   font-family: "Nunito Sans", sans-serif;
   color: var(--main-white);
-  padding: 1.5em;
+  padding: 1.2em;
   margin-top: 1em;
   display: flex;
   justify-content: center;
