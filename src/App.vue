@@ -58,6 +58,10 @@ body {
   font-weight: 700;
 }
 
+.smaller-title {
+  font-size: 1rem;
+}
+
 // .big-text {
 //   font-family: "Nunito Sans", sans-serif;
 //   font-size: 0.5rem;
@@ -111,8 +115,17 @@ input {
   border-radius: 0.5em;
   font-family: "Nunito Sans", sans-serif;
   color: var(--main-white);
-  padding: 1em;
+  padding: 1.5em;
   margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-border {
+  background-color: transparent;
+  border: 2px solid var(--main-blue);
+  color: var(--main-dark-color);
 }
 
 #app {
