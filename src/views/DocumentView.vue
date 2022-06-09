@@ -2,7 +2,7 @@
   <header>
     <span onclick="history.back()"><img :src="backIcon" /></span>
     <h1 class="big-title">{{ document.title }}</h1>
-    <div class="empty-space"></div>
+    <span><img :src="deleteIcon" alt="" /></span>
   </header>
   <main>
     {{ document.content }}
@@ -17,6 +17,7 @@
 <script>
 import { documentStore } from "../store/documents";
 import backIcon from "../assets/icons/arrow_back.svg";
+import deleteIcon from "../assets/icons/delete.svg";
 import Quill from "quill";
 window.Quill = Quill;
 // const ImageResize = require("quill-image-resize-module").default;
@@ -27,6 +28,7 @@ export default {
   setup() {
     return {
       backIcon,
+      deleteIcon,
     };
   },
   mounted() {
