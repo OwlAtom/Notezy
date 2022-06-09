@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="googleSignOut">Sign out</button>
+    <button @click="googleSignOut">log out</button>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import { mapActions } from "pinia";
 import { userStore } from "../store/user";
 
 export default {
-  name: "SignOut",
+  name: "logoutButton",
   methods: {
     googleSignOut() {
       signOut(auth)
@@ -31,5 +31,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

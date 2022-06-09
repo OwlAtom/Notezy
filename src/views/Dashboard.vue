@@ -1,4 +1,5 @@
 <template>
+  <logout-button-vue></logout-button-vue>
   <h1>Hello {{ this.user.displayName }}!</h1>
   <img
     :src="this.user.photoURL"
@@ -9,6 +10,7 @@
 
 <script>
 import { userStore } from "../store/user";
+import logoutButtonVue from "@/components/logoutButton.vue";
 
 export default {
   name: "DashboardView",
@@ -16,6 +18,9 @@ export default {
     user() {
       return userStore();
     },
+  },
+  components: {
+    logoutButtonVue,
   },
 };
 </script>

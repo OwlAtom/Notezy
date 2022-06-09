@@ -1,14 +1,15 @@
 <template>
   <div class="home">
-    <router-link :to="{ name: 'login' }">Login</router-link> -
-    <router-link :to="{ name: 'logout' }">Logout</router-link>
+    <login-button-vue></login-button-vue>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
+import loginButtonVue from "@/components/loginButton.vue";
 export default {
   name: "HomeView",
+  components: {
+    loginButtonVue,
+  },
 };
 </script>
