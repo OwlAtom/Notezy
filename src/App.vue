@@ -14,40 +14,21 @@ export default {
 </script>
 
 <style lang="less">
-:root {
-  /* main colors */
-  --main-blue: #626ade;
-  --main-white: #fafafa;
-  --main-dark-color: #3b252c;
-  --secondary-bg: #f7f8f5;
-  --faded-dark: #9b9094; //svarer til 50% main dark
-
-  /* user colors */
-  --green: #68dea3;
-  --blue: #818ef5;
-  --light-blue: #8aede5;
-  --lavender: #d79ef4;
-  --red: #ed84a0;
-  --orange: #f7be87;
-  --yellow: #f1de79;
-}
-
 // google fonts
 // todo: only load font weights that are used (do this after styling is complete)
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
+@import "./assets/css/style.less";
 
 body {
-  background-color: var(--main-white);
+  background-color: @main-white;
 }
 
 .big-title {
-  // font-family: "Bebas Neue", cursive;
   font-size: 2.5rem;
   font-weight: 400;
   text-align: center;
 }
 .medium-title {
-  // font-family: "Bebas Neue", cursive;
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -61,25 +42,6 @@ body {
 .smaller-title {
   font-size: 1rem;
 }
-
-// .big-text {
-//   font-family: "Nunito Sans", sans-serif;
-//   font-size: 0.5rem;
-//   font-weight: 700;
-//   margin-bottom: 1rem;
-// }
-// .medium-text {
-//   font-family: "Nunito Sans", sans-serif;
-//   font-size: 1.5rem;
-//   font-weight: 400;
-//   margin-bottom: 1rem;
-// }
-// .small-text {
-//   font-family: "Nunito Sans", sans-serif;
-//   font-size: 1.25rem;
-//   font-weight: 400;
-//   margin-bottom: 1rem;
-// }
 
 h1,
 h2,
@@ -102,19 +64,25 @@ main {
   margin: 0 1em 7em;
 }
 
+.round-borders {
+  border-radius: 0.5em;
+}
+
 input {
   padding: 0.7em;
-  border-radius: 0.5em;
-  border-color: #3b252c80;
+  // border-radius: 0.5em;
+  .round-borders;
+  border-color: @faded-dark;
 }
 
 .btn {
   width: 100%;
-  background-color: var(--main-blue);
+  background-color: @main-blue;
   border: none;
-  border-radius: 0.5em;
+  // border-radius: 0.5em;
+  .round-borders;
   font-family: "Nunito Sans", sans-serif;
-  color: var(--main-white);
+  color: @main-white;
   padding: 1.2em;
   margin-top: 1em;
   display: flex;
@@ -122,23 +90,18 @@ input {
   align-items: center;
 }
 
-.btn-border {
-  background-color: transparent;
-  border: 2px solid var(--main-blue);
-  color: var(--main-dark-color);
-}
-
 .btn-alt {
+  &:extend(.btn);
   background-color: initial;
-  border: 2px solid var(--main-blue);
-  color: var(--main-dark-color);
+  border: 2px solid @main-blue;
+  color: @main-dark;
 }
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--main-dark-color);
+  color: @main-dark;
 }
 
 button {

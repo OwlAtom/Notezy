@@ -41,9 +41,7 @@
       </div>
     </div>
 
-    <button class="btn btn-alt" @click="createNewFolder">
-      Create new folder
-    </button>
+    <button class="btn-alt" @click="createNewFolder">Create new folder</button>
   </main>
 </template>
 

@@ -44,13 +44,13 @@
         ></div>
       </div>
       <button type="button" class="btn" @click="saveGoal">Save goal</button>
-      <button type="button" class="btn btn-border" @click="toggleModal">
+      <button type="button" class="btn-alt" @click="toggleModal">
         Close modal
       </button>
     </div>
   </div>
   <!-- end of modal -->
-  <main class="goalsview-wrapper">
+  <main>
     <h1 class="big-title">Goals</h1>
     <div class="week-bar">
       <div :class="{ currentDay: currentDay == 1 }">M</div>
@@ -65,7 +65,7 @@
     <template v-for="goal in goalStore.goals" :key="goal.id">
       <SingleGoal :goal="goal" />
     </template>
-    <button type="button" class="btn btn-alt btn-border" @click="toggleModal">
+    <button type="button" class="btn-alt" @click="toggleModal">
       <img :src="plusIcon" /> Create New Goal
     </button>
   </main>
@@ -198,9 +198,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.goalsview-wrapper {
-  margin: 1.5em;
-}
+@import "../assets/css/style.less";
 
 .colors {
   display: flex;
@@ -234,8 +232,8 @@ router-link {
 .week-bar {
   display: flex;
   justify-content: space-evenly;
-  background-color: var(--main-dark-color);
-  color: var(--main-white);
+  background-color: @main-dark;
+  color: @main-white;
   border-radius: 7px;
   box-shadow: 0 3px 10px 0px #3b252c33;
   margin-bottom: 1.5em;
@@ -248,12 +246,12 @@ router-link {
     padding: 1em;
     width: 100%;
     text-align: center;
-    border-right: 1px solid var(--main-blue);
+    border-right: 1px solid @main-blue;
   }
 }
 
 .currentDay {
-  background-color: var(--main-blue);
+  background-color: @main-blue;
 }
 // modal :-)
 .modal-backdrop {
@@ -269,7 +267,7 @@ router-link {
 }
 
 .modal {
-  background: #ffffff;
+  background: @main-white;
   box-shadow: 2px 2px 20px 1px;
   overflow-x: auto;
   display: flex;
@@ -280,25 +278,6 @@ router-link {
   height: 100%;
   margin: 1em;
   padding: 1em;
-}
-
-.modal-header,
-.modal-footer {
-  padding: 15px;
-  display: flex;
-}
-
-.modal-header {
-  position: relative;
-  border-bottom: 1px solid #eeeeee;
-  color: #4aae9b;
-  justify-content: space-between;
-}
-
-.modal-footer {
-  border-top: 1px solid #eeeeee;
-  flex-direction: column;
-  justify-content: flex-end;
 }
 
 .modal-body {
@@ -345,11 +324,11 @@ router-link {
 }
 
 input:checked + .slider {
-  background-color: var(--main-blue);
+  background-color: @main-blue;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px var(--main-blue);
+  box-shadow: 0 0 1px @main-blue;
 }
 
 input:checked + .slider:before {
@@ -359,7 +338,7 @@ input:checked + .slider:before {
 }
 
 .slider.round {
-  border-radius: 34px;
+  border-radius: 1.5em;
 }
 
 .slider.round:before {
@@ -369,7 +348,7 @@ input:checked + .slider:before {
 
 .day-container {
   height: 7.6em;
-  background-color: var(--secondary-bg);
+  background-color: @secondary-bg;
   padding: 0 1.6em;
   display: flex;
   flex-direction: column;
@@ -386,18 +365,5 @@ input:checked + .slider:before {
   flex-direction: column;
   align-items: center;
   margin-right: 1.3em;
-}
-
-.btn-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: none;
-  font-size: 20px;
-  padding: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  color: #4aae9b;
-  background: transparent;
 }
 </style>
