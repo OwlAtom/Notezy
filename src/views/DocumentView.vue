@@ -1,4 +1,5 @@
 <template>
+  <button onclick="history.back()">Go Back</button>
   <h1 class="big-title">{{ document.title }}</h1>
   {{ document.content }}
   <div ref="editor">
