@@ -1,17 +1,22 @@
 <template>
-  <button onclick="history.back()">Go Back</button>
-  <h1 class="big-title">{{ document.title }}</h1>
-  {{ document.content }}
-  <div ref="editor">
-    <p>Hello World!</p>
-    <p>Some initial <strong>bold</strong> text</p>
-    <p><br /></p>
-  </div>
+  <header>
+    <span onclick="history.back()"><img :src="backIcon" /></span>
+    <h1 class="big-title">{{ document.title }}</h1>
+    <div class="empty-space"></div>
+  </header>
+  <main>
+    {{ document.content }}
+    <div ref="editor">
+      <p>Hello World!</p>
+      <p>Some initial <strong>bold</strong> text</p>
+      <p><br /></p>
+    </div>
+  </main>
 </template>
 
 <script>
 import { documentStore } from "../store/documents";
-
+import backIcon from "../assets/icons/arrow_back.svg";
 import Quill from "quill";
 window.Quill = Quill;
 // const ImageResize = require("quill-image-resize-module").default;
@@ -19,6 +24,11 @@ window.Quill = Quill;
 
 export default {
   name: "DocumentView",
+  setup() {
+    return {
+      backIcon,
+    };
+  },
   mounted() {
     new Quill(this.$refs.editor, {
       theme: "snow",
