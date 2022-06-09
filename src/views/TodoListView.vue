@@ -173,6 +173,7 @@ export default {
     },
     removeTodoItem(item) {
       this.todoStore.removeTodoItem(this.list.id, item.id);
+      console.log("Deleted item in list: " + item.id);
     },
     startHolding(item) {
       // probably change to just set ID and get a reference to the item
