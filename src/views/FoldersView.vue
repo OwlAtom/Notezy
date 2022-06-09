@@ -1,6 +1,7 @@
 <template>
   <div class="modal" v-if="modalActive">
     <div class="modal-content">
+      <div class="close" @click="closeFolderModal">&times;</div>
       <h2>New doc folder:</h2>
       <input
         type="text"
@@ -72,6 +73,9 @@ export default {
     openFolder(id) {
       this.$router.push({ name: "Documents", params: { id } });
     },
+    closeFolderModal() {
+      this.modalActive = false;
+    },
   },
   data() {
     return {
@@ -142,6 +146,11 @@ export default {
     button {
       align-self: center;
     }
+  }
+  .close {
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
   }
 }
 </style>

@@ -43,4 +43,7 @@ export default {
 body {
   background-color: var(--secondary-bg);
 }
+.ql-container {
+  font-size: 16px;
+}
 </style>
