@@ -27,6 +27,9 @@ export const documentStore = defineStore("documents", {
         documents: [],
       });
     },
+    removeFolder(folderId) {
+      this.folders = this.folders.filter((folder) => folder.id !== folderId);
+    },
     createDocument(title, folderId) {
       const folder = this.folders.find((folder) => folder.id === folderId);
       folder.documents.push({
@@ -40,14 +43,11 @@ export const documentStore = defineStore("documents", {
     // get all documents in a folder
     getDocuments(id) {
       const folder = this.folders.find((folder) => folder.id === id);
-      console.log("folder.id: " + id);
-      // console.log(folder);
       return folder.documents;
     },
     getDocument(folderId, documentId) {
       const folder = this.folders.find((folder) => folder.id === folderId);
-      console.log("folder.id: " + folderId);
-      console.log("document.id: " + documentId);
+
       return folder.documents.find((document) => document.id === documentId);
     },
     removeDocument(folderId, documentId) {

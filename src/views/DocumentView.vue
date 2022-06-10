@@ -1,11 +1,11 @@
 <template>
   <header>
     <span onclick="history.back()"><img :src="backIcon" /></span>
-    <h1 class="big-title">{{ document.title }}</h1>
-    <span><img :src="deleteIcon" alt="" /></span>
+    <h1 class="big-title">{{ document?.title }}</h1>
+    <button @click="removeDocument()"><img :src="deleteIcon" alt="" /></button>
   </header>
   <main>
-    {{ document.content }}
+    {{ document?.content }}
     <div ref="editor">
       <p>Hello World!</p>
       <p>Some initial <strong>bold</strong> text</p>
@@ -46,6 +46,17 @@ export default {
         this.$route.params.folderID,
         this.$route.params.id
       );
+    },
+  },
+  methods: {
+    removeDocument() {
+      history.back();
+      this.$nextTick(() => {
+        this.documentStore.removeDocument(
+          this.$route.params.folderID,
+          this.$route.params.id
+        );
+      });
     },
   },
 };

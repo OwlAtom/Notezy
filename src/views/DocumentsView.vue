@@ -48,8 +48,7 @@ export default {
       this.title = "";
     },
     removeDocument(document) {
-      this.documentStore.removeDocument(this.folders.id, document.id);
-      // console.log(document.id);
+      this.documentStore.removeDocument(this.$route.params.id, document.id);
     },
   },
 };
