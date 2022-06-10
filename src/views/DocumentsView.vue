@@ -8,15 +8,16 @@
 
     <!-- Show documents in folder -->
     <ul>
-      <li v-for="(doc, index) in documents" :key="index">
+      <li v-for="(document, index) in documents" :key="index">
         <router-link
           :to="{
             name: 'Document',
-            params: { id: doc.id, folderID: this.$route.params.id },
+            params: { id: document.id, folderID: this.$route.params.id },
           }"
-          >{{ doc.title }}
+          >{{ document.title }}
           <span>></span>
         </router-link>
+        <button @click="removeDocument(document)">delete</button>
       </li>
     </ul>
   </main>
@@ -45,6 +46,9 @@ export default {
     createDocument() {
       this.documentStore.createDocument(this.title, this.$route.params.id);
       this.title = "";
+    },
+    removeDocument(document) {
+      this.documentStore.removeDocument(this.$route.params.id, document.id);
     },
   },
 };

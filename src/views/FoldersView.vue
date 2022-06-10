@@ -32,11 +32,13 @@
         class="folder"
         v-for="(folder, index) in documentStore.folders"
         :key="index"
-        @click="openFolder(folder.id)"
         :style="{ backgroundColor: folder.color }"
       >
-        <div class="folder-name">
+        <div class="folder-name" @click="openFolder(folder.id)">
           {{ folder.name }}
+        </div>
+        <div class="folder-delete">
+          <button @click="removeFolder(folder)">&times;</button>
         </div>
       </div>
     </div>
@@ -76,6 +78,9 @@ export default {
     closeFolderModal() {
       this.modalActive = false;
     },
+    removeFolder(folder) {
+      this.documentStore.removeFolder(folder.id);
+    },
   },
   data() {
     return {
@@ -114,11 +119,25 @@ export default {
     width: 100%;
     margin-bottom: 1em;
     border-radius: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em;
   }
   .folder-name {
     cursor: pointer;
     padding: 1em;
     color: var(--main-dark-color);
+    width: 100%;
+  }
+  .folder-delete {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 1em;
+    button {
+      margin-left: 1em;
+    }
   }
 }
 // stolen directly from the Vue fireblogs tutorial

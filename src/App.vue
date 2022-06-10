@@ -144,4 +144,19 @@ input {
 button {
   width: 80%;
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 1em;
+
+  img {
+    width: 2.5em;
+  }
+
+  .empty-space {
+    width: 2.5em;
+  }
+}
 </style>
