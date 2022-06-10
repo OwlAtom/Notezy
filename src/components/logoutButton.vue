@@ -29,5 +29,10 @@ export default {
     },
     ...mapActions(userStore, ["clearUser"]),
   },
+  computed: {
+    userStore() {
+      return userStore();
+    },
+  },
 };
 </script>

@@ -1,15 +1,15 @@
 <template>
   <div class="home">
-    <login-button-vue></login-button-vue>
+    <login-button></login-button>
   </div>
 </template>
 
 <script>
-import loginButtonVue from "@/components/loginButton.vue";
+import loginButton from "@/components/loginButton.vue";
 export default {
   name: "HomeView",
   components: {
-    loginButtonVue,
+    loginButton,
   },
 };
 </script>

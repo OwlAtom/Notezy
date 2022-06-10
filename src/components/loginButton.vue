@@ -18,7 +18,7 @@ import { mapActions } from "pinia";
 import { userStore } from "../store/user";
 
 export default {
-  name: "SignUp",
+  name: "loginButton",
   mounted() {
     // only check redirect result _tokenResponse is not null
     // if _tokenResponse is null, it means user is not redirected from google sign in
