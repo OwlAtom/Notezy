@@ -1,16 +1,11 @@
 <template>
   <header>
-    <span onclick="history.back()"><img :src="backIcon" /></span>
+    <span @click="goBack()"><img :src="backIcon" /></span>
     <h1 class="big-title">{{ document?.title }}</h1>
     <button @click="removeDocument()"><img :src="deleteIcon" alt="" /></button>
   </header>
   <main>
-    {{ document?.content }}
-    <div ref="editor">
-      <p>Hello World!</p>
-      <p>Some initial <strong>bold</strong> text</p>
-      <p><br /></p>
-    </div>
+    <div ref="editor" v-html="document?.content"></div>
   </main>
 </template>
 
@@ -32,8 +27,20 @@ export default {
     };
   },
   mounted() {
-    new Quill(this.$refs.editor, {
+    this.quill = new Quill(this.$refs.editor, {
       theme: "snow",
+      placeholder: "Write your notes here",
+    });
+
+    const that = this;
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        that.saveDocument();
+      }
+    });
+
+    window.addEventListener("pagehide", () => {
+      that.saveDocument();
     });
   },
   computed: {
@@ -49,14 +56,30 @@ export default {
     },
   },
   methods: {
+    goBack() {
+      this.$router.push({
+        name: "Documents",
+        params: {
+          id: this.$route.params.folderID,
+        },
+      });
+      this.saveDocument();
+    },
     removeDocument() {
-      history.back();
+      this.goBack();
       this.$nextTick(() => {
         this.documentStore.removeDocument(
           this.$route.params.folderID,
           this.$route.params.id
         );
       });
+    },
+    saveDocument() {
+      this.documentStore.saveDocument(
+        this.$route.params.folderID,
+        this.$route.params.id,
+        this.quill.root.innerHTML
+      );
     },
   },
 };
