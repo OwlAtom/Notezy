@@ -13,13 +13,19 @@
     </div>
 
     <AddTodoButton />
+    <template v-for="goal in goalStore.goals" :key="goal.id">
+      <!-- Skal kun hente goals med id -->
+      <SingleGoal v-if="(goal.id = 1)" :goal="goal" />
+    </template>
   </main>
 </template>
 
 <script>
 import { userStore } from "../store/user";
+import { goalStore } from "../store/goals";
 import logoutButton from "@/components/logoutButton.vue";
 import AddTodoButton from "@/components/AddTodoButton.vue";
+import SingleGoal from "../components/SingleGoal.vue";
 
 export default {
   name: "DashboardView",
@@ -27,15 +33,20 @@ export default {
     user() {
       return userStore();
     },
+    // goals store
+    goalStore() {
+      return goalStore();
+    },
   },
   components: {
     logoutButton: logoutButton,
     AddTodoButton,
+    SingleGoal,
   },
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .pfp {
   width: 50px;
   height: 50px;
