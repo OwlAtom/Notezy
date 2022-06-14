@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { defineStore } from "pinia";
 import { v4 as uuidv4 } from "uuid";
 import { cyrb53 } from "./cyrb53";
@@ -7,10 +6,8 @@ import {
   getFirestore,
   collection,
   doc,
-  addDoc,
   getDoc,
   query,
-  where,
   getDocs,
   setDoc,
   deleteDoc,
@@ -32,6 +29,7 @@ const db = getFirestore();
 export const documentStore = defineStore("documents", {
   state: () => ({
     folders: [],
+    lastLoad: {},
   }),
   actions: {
     async createFolder(folderName, color) {
@@ -130,12 +128,12 @@ export const documentStore = defineStore("documents", {
     async loadFolders() {
       // if the time of last load is less than X hours ago, return
       if (
-        this.lastFolderLoad &&
-        Date.now() - this.lastFolderLoad < HoursBetweenLoads * 60 * 60 * 1000
+        this.lastLoad.folders &&
+        Date.now() - this.lastLoad.folders < HoursBetweenLoads * 60 * 60 * 1000
       ) {
         return;
       }
-      this.lastFolderLoad = Date.now();
+      this.lastLoad.folders = Date.now();
       // if the user is not logged in, wait for the user to log in
       if (!userID) {
         await new Promise((resolve) => {
@@ -176,13 +174,13 @@ export const documentStore = defineStore("documents", {
       const folder = this.folders.find((folder) => folder.id === folderID);
 
       if (
-        folder.lastDocumentsLoad &&
-        Date.now() - folder.lastDocumentsLoad <
+        this.lastLoad[folderID] &&
+        Date.now() - this.lastLoad[folderID] <
           HoursBetweenLoads * 60 * 60 * 1000
       ) {
         return;
       }
-      folder.lastDocumentsLoad = Date.now();
+      this.lastLoad[folderID] = Date.now();
       const firestoreDocuments = await getDocs(
         query(collection(db, `users/${userID}/folders/${folderID}/documents`))
       );
