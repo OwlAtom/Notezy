@@ -103,6 +103,15 @@ export default {
 body {
   background-color: var(--secondary-bg);
 }
+
+header {
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+}
+
 .ql-container {
   font-size: 16px;
 }

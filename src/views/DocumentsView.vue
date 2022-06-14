@@ -1,8 +1,10 @@
 <template>
-  <main>
+  <header>
+    <router-link :to="{ name: 'Folders' }"><img :src="backIcon" /></router-link>
     <h1 class="big-title">Notes</h1>
-    <router-link :to="{ name: 'Folders' }">&lt; Back</router-link>
-    <br />
+    <span></span>
+  </header>
+  <main>
     <AddDocument />
     <!-- Show documents in folder -->
     <ul>
@@ -13,9 +15,9 @@
             params: { id: document.id, folderID: this.$route.params.id },
           }"
           >{{ document.title }}
-          <span>></span>
+          <span><img class="chevron-img" :src="arrowIcon" /></span>
         </router-link>
-        <button @click="removeDocument(document)">delete</button>
+        <!-- <button @click="removeDocument(document)">delete</button> -->
       </li>
     </ul>
   </main>
@@ -24,11 +26,19 @@
 <script>
 import { documentStore } from "../store/documents";
 import AddDocument from "@/components/AddDocument.vue";
+import backIcon from "../assets/icons/arrow_back.svg";
+import arrowIcon from "../assets/icons/chevron_right.svg";
 
 export default {
   name: "DocumentsView",
   components: {
     AddDocument,
+  },
+  setup() {
+    return {
+      backIcon,
+      arrowIcon,
+    };
   },
   data() {
     return {
@@ -66,11 +76,21 @@ ul {
 
     a {
       text-decoration: none;
+      text-transform: capitalize;
       padding: 0.7em 0;
       display: flex;
       justify-content: space-between;
-      align-content: center;
+      align-items: center;
     }
   }
+}
+header {
+  span {
+    width: 2.5em;
+  }
+}
+
+.chevron-img {
+  width: 2em;
 }
 </style>

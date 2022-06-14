@@ -98,6 +98,12 @@ label {
   font-family: "Nunito Sans", sans-serif;
 }
 
+a:link,
+a:visited,
+a:active {
+  color: var(--main-dark-color);
+}
+
 main {
   margin: 0 1em 7em;
 }
