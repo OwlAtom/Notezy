@@ -141,9 +141,9 @@ input {
   color: var(--main-dark-color);
 }
 
-button {
-  width: 80%;
-}
+// button {
+//   width: 80%;
+// }
 
 header {
   display: flex;

@@ -71,7 +71,9 @@
           >
             {{ item.name }}
           </p>
-          <button @click="removeTodoItem(item)">x</button>
+          <button @click="removeTodoItem(item)">
+            <img class="delete-icon" :src="deleteIcon" />
+          </button>
         </div>
         <div class="subtasks" v-if="item?.subtasks?.length > 0">
           <div
@@ -86,7 +88,9 @@
             />
             <p>{{ subtask.name }}</p>
 
-            <button @click="removeSubtask(item, subtask)">x</button>
+            <button @click="removeSubtask(item, subtask)">
+              <img class="delete-icon" :src="deleteIcon" />
+            </button>
           </div>
         </div>
       </div>
@@ -115,7 +119,9 @@
           >
             {{ item.name }}
           </p>
-          <button @click="removeTodoItem(item)">x</button>
+          <button @click="removeTodoItem(item)">
+            <img class="delete-icon" :src="deleteIcon" />
+          </button>
         </div>
       </div>
     </div>
@@ -126,6 +132,7 @@
 import { todoStore } from "../store/todo";
 import { v4 as uuid } from "uuid";
 import backIcon from "../assets/icons/arrow_back.svg";
+import deleteIcon from "../assets/icons/delete.svg";
 import settingsIcon from "../assets/icons/settings.svg";
 
 export default {
@@ -134,6 +141,7 @@ export default {
     return {
       backIcon,
       settingsIcon,
+      deleteIcon,
     };
   },
   computed: {
@@ -386,5 +394,8 @@ export default {
       border-bottom: 1px solid #ccc;
     }
   }
+}
+.delete-icon {
+  width: 1.3em;
 }
 </style>
