@@ -38,7 +38,9 @@
           {{ folder.name }}
         </div>
         <div class="folder-delete">
-          <button @click="removeFolder(folder)">&times;</button>
+          <button @click="removeFolder(folder)">
+            <img :src="deleteIcon" />
+          </button>
         </div>
       </div>
     </div>
@@ -51,9 +53,15 @@
 
 <script>
 import { documentStore } from "../store/documents";
+import deleteIcon from "../assets/icons/delete.svg";
 
 export default {
   name: "DocumentView",
+  setup() {
+    return {
+      deleteIcon,
+    };
+  },
   mounted() {
     // load folders from firestore
     this.documentStore.loadFolders();
@@ -137,7 +145,6 @@ export default {
 }
 .folders {
   .folder {
-    width: 100%;
     margin-bottom: 1em;
     border-radius: 0.5em;
     display: flex;
@@ -155,9 +162,14 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-right: 1em;
     button {
-      margin-left: 1em;
+      border: none;
+      background: none;
+      cursor: pointer;
+
+      img {
+        width: 32px;
+      }
     }
   }
 }
