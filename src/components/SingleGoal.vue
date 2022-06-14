@@ -81,22 +81,21 @@ export default {
   .goal {
     height: 7.6em;
     width: 100%;
-    // margin: 1.5em 1.5em;
+    padding: 0 1em;
     border-radius: 0.5em;
     margin-bottom: 1em;
     // background-color: var(--main-blue);
     .checkboxes {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       flex-direction: row;
-      padding: 0.5em;
       input[type="checkbox"] {
         // height: 1.5em;
         // width: 1.5em;
-        width: 25px;
-        height: 25px;
-        margin: 0.3em 0.5em;
+        width: 30px;
+        height: 30px;
+        // margin: 0.3em 0.5em;
         border: 1px black solid;
       }
     }
