@@ -51,6 +51,9 @@
     </div>
 
     <div class="todo-items">
+      <div class="empty-list" v-if="list.items.length == 0">
+        <p>No todos added yet</p>
+      </div>
       <div
         class="todo-items-divider"
         v-for="(item, index) in uncheckedItems"
@@ -237,6 +240,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.empty-list {
+  display: flex;
+  justify-content: center;
+  margin: 2em 0;
+
+  p {
+    font-size: 20px;
+    color: var(--faded-dark);
+  }
+}
+
 .todo-list {
   .todo-items-divider {
     border-bottom: 1px solid #ccc;

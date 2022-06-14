@@ -14,6 +14,9 @@
         </div>
       </template>
     </div>
+    <div class="empty-list" v-if="list.items.length == 0">
+      <p>No todos yet</p>
+    </div>
   </div>
 </template>
 
@@ -58,6 +61,14 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+.empty-list {
+  display: flex;
+  justify-content: center;
+
+  p {
+    color: var(--faded-dark);
   }
 }
 </style>
