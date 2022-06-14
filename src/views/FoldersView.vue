@@ -7,7 +7,7 @@
         type="text"
         placeholder="Name your folder"
         ref="folderName"
-        @keypress.enter="addFolder"
+        @keypress.enter="createFolder"
       />
       <!-- choose color -->
       <!-- todo: highlight farven der er valgt -->
@@ -22,7 +22,7 @@
       </div>
       <!-- todo: make into component -->
 
-      <button class="btn" @click="addFolder">Create new folder</button>
+      <button class="btn" @click="createFolder">Create new folder</button>
     </div>
   </div>
   <main>
@@ -54,6 +54,10 @@ import { documentStore } from "../store/documents";
 
 export default {
   name: "DocumentView",
+  mounted() {
+    // load folders from firestore
+    this.documentStore.loadFolders();
+  },
   computed: {
     documentStore() {
       return documentStore();
@@ -64,13 +68,26 @@ export default {
       // åben modal istedet
       this.modalActive = true;
     },
-    addFolder() {
-      this.documentStore.addFolder(this.$refs.folderName.value, this.color);
+    createFolder() {
+      // ensure folder has name and color
+      if (this.$refs.folderName.value === "") {
+        alert("Please enter a name for your folder");
+        return;
+      }
+      if (this.selectedColor === "") {
+        alert("Please choose a color for your folder");
+        return;
+      }
+      this.documentStore.createFolder(
+        this.$refs.folderName.value,
+        this.selectedColor
+      );
       this.modalActive = false;
+      this.selectedColor = "";
     },
     setColor(color) {
       console.log(color);
-      this.color = color;
+      this.selectedColor = color;
     },
     openFolder(id) {
       this.$router.push({ name: "Documents", params: { id } });
@@ -78,14 +95,18 @@ export default {
     closeFolderModal() {
       this.modalActive = false;
     },
-    removeFolder(folder) {
-      this.documentStore.removeFolder(folder.id);
+    async removeFolder(folder) {
+      const status = await this.documentStore.removeFolder(folder.id);
+      if (status) {
+        console.error(status);
+        // todo: show error message in modal or something like that
+      }
     },
   },
   data() {
     return {
       modalActive: false,
-      color: null,
+      selectedColor: null,
       colors: [
         "#68dea3",
         "#818ef5",
