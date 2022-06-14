@@ -1,16 +1,18 @@
 <template>
-  {{ document.title }}
-  {{ document.content }}
-  <div ref="editor">
-    <p>Hello World!</p>
-    <p>Some initial <strong>bold</strong> text</p>
-    <p><br /></p>
-  </div>
+  <header>
+    <span @click="goBack()"><img :src="backIcon" /></span>
+    <h1 class="big-title">{{ document?.title }}</h1>
+    <button @click="removeDocument()"><img :src="deleteIcon" alt="" /></button>
+  </header>
+  <main>
+    <div ref="editor" v-html="document?.content"></div>
+  </main>
 </template>
 
 <script>
 import { documentStore } from "../store/documents";
-
+import backIcon from "../assets/icons/arrow_back.svg";
+import deleteIcon from "../assets/icons/delete.svg";
 import Quill from "quill";
 window.Quill = Quill;
 // const ImageResize = require("quill-image-resize-module").default;
@@ -18,10 +20,34 @@ window.Quill = Quill;
 
 export default {
   name: "DocumentView",
+  setup() {
+    return {
+      backIcon,
+      deleteIcon,
+    };
+  },
   mounted() {
-    new Quill(this.$refs.editor, {
+    this.quill = new Quill(this.$refs.editor, {
       theme: "snow",
+      placeholder: "Write your notes here",
     });
+
+    document.addEventListener("visibilitychange", this.handleVisibilityChange);
+    window.addEventListener("pagehide", this.handlePageHide);
+    // listen for when user leaves page / navigates to another part of the app
+    // if user leaves page, remove event listeners
+  },
+  watch: {
+    $route(to) {
+      // if user navigates away from this page, remove event listeners
+      if (to.name !== "Document") {
+        document.removeEventListener(
+          "visibilitychange",
+          this.handleVisibilityChange
+        );
+        window.removeEventListener("pagehide", this.handlePageHide);
+      }
+    },
   },
   computed: {
     documentStore() {
@@ -35,7 +61,49 @@ export default {
       );
     },
   },
+  methods: {
+    handleVisibilityChange() {
+      if (document.visibilityState === "hidden") {
+        this.saveDocument();
+      }
+    },
+    handlePageHide() {
+      this.saveDocument();
+    },
+    goBack() {
+      this.$router.push({
+        name: "Documents",
+        params: {
+          id: this.$route.params.folderID,
+        },
+      });
+      this.saveDocument();
+    },
+    removeDocument() {
+      this.goBack();
+      this.$nextTick(() => {
+        this.documentStore.removeDocument(
+          this.$route.params.folderID,
+          this.$route.params.id
+        );
+      });
+    },
+    saveDocument() {
+      this.documentStore.saveDocument(
+        this.$route.params.folderID,
+        this.$route.params.id,
+        this.quill.root.innerHTML
+      );
+    },
+  },
 };
 </script>
 
-<style></style>
+<style lang="less" scoped>
+body {
+  background-color: var(--secondary-bg);
+}
+.ql-container {
+  font-size: 16px;
+}
+</style>

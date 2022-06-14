@@ -1,14 +1,18 @@
 <template>
+  <logout-button></logout-button>
   <h1>Hello {{ this.user.displayName }}!</h1>
   <img
     :src="this.user.photoURL"
-    alt="Profile Image for { this.user.displayName }"
+    :alt="'Profile Image for ' + this.user.displayName"
     class="pfp"
   />
+  <AddTodoButton />
 </template>
 
 <script>
 import { userStore } from "../store/user";
+import logoutButton from "@/components/logoutButton.vue";
+import AddTodoButton from "@/components/AddTodoButton.vue";
 
 export default {
   name: "DashboardView",
@@ -16,6 +20,10 @@ export default {
     user() {
       return userStore();
     },
+  },
+  components: {
+    logoutButton: logoutButton,
+    AddTodoButton,
   },
 };
 </script>

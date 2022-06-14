@@ -19,12 +19,15 @@
         <span class="slider round"></span>
       </label>
 
-      <div v-show="onSpecificDays" class="day-container smaller-title">
-        Choose the days:
+      <div v-show="onSpecificDays" class="day-container">
+        <p>Choose the days:</p>
+
         <!-- loop days -->
-        <div class="individual-day" v-for="day in days" :key="day">
-          <label :for="day.name" class="smaller-title">{{ day.name }}</label>
-          <input :id="day.name" type="checkbox" v-model="day.checked" />
+        <div class="day-container-flex smaller-title">
+          <div class="individual-day" v-for="day in days" :key="day">
+            <label :for="day.name" class="smaller-title">{{ day.name }}</label>
+            <input :id="day.name" type="checkbox" v-model="day.checked" />
+          </div>
         </div>
       </div>
 
@@ -47,7 +50,7 @@
     </div>
   </div>
   <!-- end of modal -->
-  <div class="goalsview-wrapper">
+  <main class="goalsview-wrapper">
     <h1 class="big-title">Goals</h1>
     <div class="week-bar">
       <div :class="{ currentDay: currentDay == 1 }">M</div>
@@ -65,7 +68,8 @@
     <button type="button" class="btn btn-alt btn-border" @click="toggleModal">
       <img :src="plusIcon" /> Create New Goal
     </button>
-  </div>
+  </main>
+  <CreateGoal v-show="isModalVisible" @close="closeModal" />
 </template>
 
 <script>
@@ -193,7 +197,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .goalsview-wrapper {
   margin: 1.5em;
 }
@@ -365,11 +369,17 @@ input:checked + .slider:before {
 //
 
 .day-container {
-  display: flex;
   height: 7.6em;
-  align-items: center;
   background-color: var(--secondary-bg);
   padding: 0 1.6em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.day-container-flex {
+  display: flex;
+  align-items: center;
 }
 
 .individual-day {

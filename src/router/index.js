@@ -1,53 +1,45 @@
 import { createRouter, createWebHistory } from "vue-router";
-import LandingView from "../views/LandingView.vue";
-import Dashboard from "../views/Dashboard.vue";
-import TodoOverview from "../views/TodoOverview.vue";
-import FoldersView from "../views/FoldersView.vue";
-import GoalsView from "../views/GoalsView.vue";
-import TodoListView from "../views/TodoListView.vue";
-import DocumentsView from "../views/DocumentsView.vue";
-import DocumentView from "../views/DocumentView.vue";
 
 const routes = [
   {
     path: "/",
     name: "Landing",
-    component: LandingView,
+    component: () => import("../views/LandingView.vue"),
   },
   {
     path: "/home",
     name: "Home",
-    component: Dashboard,
+    component: () => import("../views/Dashboard.vue"),
   },
   {
     path: "/todo",
     name: "Todo",
-    component: TodoOverview,
+    component: () => import("../views/TodoOverview.vue"),
   },
   {
     path: "/todoList/:id",
     name: "TodoList",
-    component: TodoListView,
+    component: () => import("../views/TodoListView.vue"),
   },
   {
     path: "/folders",
     name: "Folders",
-    component: FoldersView,
+    component: () => import("../views/FoldersView.vue"),
   },
   {
     path: "/folder/:id",
     name: "Documents",
-    component: DocumentsView,
+    component: () => import("../views/DocumentsView.vue"),
   },
   {
     path: "/folder/:folderID/document/:id",
     name: "Document",
-    component: DocumentView,
+    component: () => import("../views/DocumentView.vue"),
   },
   {
     path: "/goals",
     name: "Goals",
-    component: GoalsView,
+    component: () => import("../views/GoalsView.vue"),
   },
   // {
   //   path: "/about",
@@ -58,16 +50,6 @@ const routes = [
   //   component: () =>
   //     import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   // },
-  {
-    path: "/login",
-    name: "login",
-    component: () => import("../views/UserLogin.vue"),
-  },
-  {
-    path: "/logout",
-    name: "logout",
-    component: () => import("../views/UserLogout.vue"),
-  },
 ];
 
 const router = createRouter({

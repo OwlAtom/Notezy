@@ -1,12 +1,13 @@
 <template>
   <div class="modal" v-if="modalActive">
     <div class="modal-content">
+      <div class="close" @click="closeFolderModal">&times;</div>
       <h2>New doc folder:</h2>
       <input
         type="text"
         placeholder="Name your folder"
         ref="folderName"
-        @keypress.enter="addFolder"
+        @keypress.enter="createFolder"
       />
       <!-- choose color -->
       <!-- todo: highlight farven der er valgt -->
@@ -21,23 +22,31 @@
       </div>
       <!-- todo: make into component -->
 
-      <button class="btn" @click="addFolder">Create new folder</button>
+      <button class="btn" @click="createFolder">Create new folder</button>
     </div>
   </div>
-  <div class="todo">
-    <h1>All folders</h1>
-    <div
-      class="folders"
-      v-for="(folder, index) in documentStore.folders"
-      :key="index"
-      @click="openFolder(folder.id)"
-    >
-      <div class="folder-name" :style="{ backgroundColor: folder.color }">
-        {{ folder.name }}
+  <main>
+    <h1 class="big-title">All folders</h1>
+    <div class="folders">
+      <div
+        class="folder"
+        v-for="(folder, index) in documentStore.folders"
+        :key="index"
+        :style="{ backgroundColor: folder.color }"
+      >
+        <div class="folder-name" @click="openFolder(folder.id)">
+          {{ folder.name }}
+        </div>
+        <div class="folder-delete">
+          <button @click="removeFolder(folder)">&times;</button>
+        </div>
       </div>
     </div>
-    <button @click="createNewFolder">Create new folder</button>
-  </div>
+
+    <button class="btn btn-alt" @click="createNewFolder">
+      Create new folder
+    </button>
+  </main>
 </template>
 
 <script>
@@ -45,6 +54,10 @@ import { documentStore } from "../store/documents";
 
 export default {
   name: "DocumentView",
+  mounted() {
+    // load folders from firestore
+    this.documentStore.loadFolders();
+  },
   computed: {
     documentStore() {
       return documentStore();
@@ -55,39 +68,53 @@ export default {
       // åben modal istedet
       this.modalActive = true;
     },
-    addFolder() {
-      this.documentStore.addFolder(this.$refs.folderName.value, this.color);
+    createFolder() {
+      // ensure folder has name and color
+      if (this.$refs.folderName.value === "") {
+        alert("Please enter a name for your folder");
+        return;
+      }
+      if (this.selectedColor === "") {
+        alert("Please choose a color for your folder");
+        return;
+      }
+      this.documentStore.createFolder(
+        this.$refs.folderName.value,
+        this.selectedColor
+      );
       this.modalActive = false;
+      this.selectedColor = "";
     },
     setColor(color) {
       console.log(color);
-      this.color = color;
+      this.selectedColor = color;
     },
     openFolder(id) {
       this.$router.push({ name: "Documents", params: { id } });
+    },
+    closeFolderModal() {
+      this.modalActive = false;
+    },
+    async removeFolder(folder) {
+      const status = await this.documentStore.removeFolder(folder.id);
+      if (status) {
+        console.error(status);
+        // todo: show error message in modal or something like that
+      }
     },
   },
   data() {
     return {
       modalActive: false,
-      color: null,
+      selectedColor: null,
       colors: [
-        "#f44336",
-        "#e91e63",
-        "#9c27b0",
-        "#673ab7",
-        "#3f51b5",
-        "#2196f3",
-        "#03a9f4",
-        "#00bcd4",
-        "#009688",
-        "#4caf50",
-        "#8bc34a",
-        "#cddc39",
-        "#ffeb3b",
-        "#ffc107",
-        "#ff9800",
-        "#ff5722",
+        "#68dea3",
+        "#818ef5",
+        "#8aede5",
+        "#d79ef4",
+        "#ed84a0",
+        "#f7be87",
+        "#f1de79",
       ],
     };
   },
@@ -109,22 +136,29 @@ export default {
   }
 }
 .folders {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  .folder {
+    width: 100%;
+    margin-bottom: 1em;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em;
+  }
   .folder-name {
-    width: 5em;
-    height: 5em;
-    border: 1px solid #ccc;
-    border-radius: 5%;
-    margin: 5px;
     cursor: pointer;
-    text-align: center;
-    line-height: 5em;
-    color: white;
-    text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000,
-      1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;
-    font-size: 1.5em;
+    padding: 1em;
+    color: var(--main-dark-color);
+    width: 100%;
+  }
+  .folder-delete {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 1em;
+    button {
+      margin-left: 1em;
+    }
   }
 }
 // stolen directly from the Vue fireblogs tutorial
@@ -152,6 +186,11 @@ export default {
     button {
       align-self: center;
     }
+  }
+  .close {
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
   }
 }
 </style>

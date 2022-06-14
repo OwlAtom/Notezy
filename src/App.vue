@@ -20,6 +20,7 @@ export default {
   --main-white: #fafafa;
   --main-dark-color: #3b252c;
   --secondary-bg: #f7f8f5;
+  --faded-dark: #9b9094; //svarer til 50% main dark
 
   /* user colors */
   --green: #68dea3;
@@ -43,7 +44,6 @@ body {
   // font-family: "Bebas Neue", cursive;
   font-size: 2.5rem;
   font-weight: 400;
-  margin-bottom: 1rem;
   text-align: center;
 }
 .medium-title {
@@ -98,6 +98,10 @@ label {
   font-family: "Nunito Sans", sans-serif;
 }
 
+main {
+  margin: 0 1em 7em;
+}
+
 input {
   padding: 0.7em;
   border-radius: 0.5em;
@@ -111,7 +115,7 @@ input {
   border-radius: 0.5em;
   font-family: "Nunito Sans", sans-serif;
   color: var(--main-white);
-  padding: 1.5em;
+  padding: 1.2em;
   margin-top: 1em;
   display: flex;
   justify-content: center;
@@ -124,6 +128,12 @@ input {
   color: var(--main-dark-color);
 }
 
+.btn-alt {
+  background-color: initial;
+  border: 2px solid var(--main-blue);
+  color: var(--main-dark-color);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -131,8 +141,22 @@ input {
   color: var(--main-dark-color);
 }
 
-button {
-  width: 80%;
-  height: 2em;
+// button {
+//   width: 80%;
+// }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 1em;
+
+  img {
+    width: 2.5em;
+  }
+
+  .empty-space {
+    width: 2.5em;
+  }
 }
 </style>

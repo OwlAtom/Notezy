@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <span v-if="loggedIn">
+    <span v-if="this.user.loggedIn">
       <!-- <span> -->
       <router-link :to="{ name: 'Home' }"
         ><img :src="homeIcon" />Dashboard</router-link
@@ -38,36 +38,17 @@ export default {
       goalIcon,
     };
   },
-  data() {
-    return {
-      loggedIn: null,
-    };
+  mounted() {
+    this.user.init();
   },
   computed: {
     user() {
       return userStore();
     },
   },
-  mounted() {
-    if (this.user.wasRehydrated) {
-      this.loggedIn = true;
-    } else {
-      this.loggedIn = false;
-    }
-    // each time the user store changes, update the loggedIn variable
-    this.user.$onAction(({ args }) => {
-      // set loggedIn to true if user has an email
-      // should we also check if the user is logged in with google?
-      if (args[0]?.email) {
-        this.loggedIn = true;
-      } else {
-        this.loggedIn = false;
-      }
-    });
-  },
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 nav {
   padding: 0.8em 0;
   width: 100%;
@@ -76,6 +57,7 @@ nav {
   position: fixed;
   bottom: 0;
   text-align: center;
+  background-color: var(--main-white);
 
   span {
     display: flex;

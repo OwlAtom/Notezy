@@ -1,13 +1,15 @@
 <template>
   <div class="modal" v-if="modalActive">
     <div class="modal-content">
+      <span class="close" @click="closeTodoModal">&times;</span>
+      <h2>Edit To Do:</h2>
       <input
         type="text"
         placeholder="Task name goes here.."
         :value="shownItem?.name"
         ref="modalTodoItemName"
       />
-      <h3>Subtasks:</h3>
+      <h3>Edit subtasks:</h3>
       <div
         class="subtasks"
         v-for="(subtask, index) in shownItem.subtasks"
@@ -23,7 +25,7 @@
       </div>
       <div class="new-subtask">
         <input type="text" placeholder="Add a subtask" ref="newSubtaskName" />
-        <button class="btn" @click="addSubtask">Add Subtask</button>
+        <button class="add-todo" @click="addSubtask">+</button>
       </div>
       <button class="btn" @click="saveItemEdits">
         Save Changes and close modal
@@ -31,10 +33,16 @@
     </div>
   </div>
 
-  <router-link :to="{ name: 'Todo' }">&lt; Back</router-link>
-
-  <div class="todo-list">
-    <h2 class="big-title">{{ list.name }}</h2>
+  <header>
+    <router-link :to="{ name: 'Todo' }"
+      ><span><img :src="backIcon" /></span
+    ></router-link>
+    <h1 class="big-title">{{ list.name }}</h1>
+    <span
+      ><button @click="removeTodoList(list)"><img :src="deleteIcon" /></button
+    ></span>
+  </header>
+  <main class="todo-list">
     <div class="new-todo">
       <input
         type="text"
@@ -46,6 +54,9 @@
     </div>
 
     <div class="todo-items">
+      <div class="empty-list" v-if="list.items.length == 0">
+        <p>No todos added yet</p>
+      </div>
       <div
         class="todo-items-divider"
         v-for="(item, index) in uncheckedItems"
@@ -63,7 +74,9 @@
           >
             {{ item.name }}
           </p>
-          <button @click="removeTodoItem(item)">x</button>
+          <button @click="removeTodoItem(item)">
+            <img class="delete-icon" :src="deleteIcon" />
+          </button>
         </div>
         <div class="subtasks" v-if="item?.subtasks?.length > 0">
           <div
@@ -78,7 +91,9 @@
             />
             <p>{{ subtask.name }}</p>
 
-            <button @click="removeSubtask(item, subtask)">x</button>
+            <button @click="removeSubtask(item, subtask)">
+              <img class="delete-icon" :src="deleteIcon" />
+            </button>
           </div>
         </div>
       </div>
@@ -107,19 +122,31 @@
           >
             {{ item.name }}
           </p>
-          <button @click="removeTodoItem(item)">x</button>
+          <button @click="removeTodoItem(item)">
+            <img class="delete-icon" :src="deleteIcon" />
+          </button>
         </div>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
 import { todoStore } from "../store/todo";
 import { v4 as uuid } from "uuid";
+import backIcon from "../assets/icons/arrow_back.svg";
+import deleteIcon from "../assets/icons/delete.svg";
+import settingsIcon from "../assets/icons/settings.svg";
 
 export default {
   name: "TodoListView",
+  setup() {
+    return {
+      backIcon,
+      settingsIcon,
+      deleteIcon,
+    };
+  },
   computed: {
     todoStore() {
       return todoStore();
@@ -149,6 +176,10 @@ export default {
     };
   },
   methods: {
+    removeTodoList(list) {
+      history.back();
+      this.todoStore.removeTodoList(list.id);
+    },
     addTodoItem() {
       const todoItem = {
         name: this.$refs.todoItemName.value,
@@ -160,6 +191,7 @@ export default {
     },
     removeTodoItem(item) {
       this.todoStore.removeTodoItem(this.list.id, item.id);
+      console.log("Deleted item in list: " + item.id);
     },
     startHolding(item) {
       // probably change to just set ID and get a reference to the item
@@ -215,15 +247,40 @@ export default {
       const index = item.subtasks.indexOf(subtask);
       item.subtasks.splice(index, 1);
     },
+    closeTodoModal() {
+      this.modalActive = false;
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
+header {
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+}
+.empty-list {
+  display: flex;
+  justify-content: center;
+  margin: 2em 0;
+
+  p {
+    font-size: 20px;
+    color: var(--faded-dark);
+  }
+}
+
 .todo-list {
   .todo-items-divider {
     border-bottom: 1px solid #ccc;
   }
+  .todo-items :last-of-type {
+    border-bottom: none;
+  }
+
   .todo-item {
     display: flex;
     align-items: center;
@@ -232,14 +289,11 @@ export default {
     // border-bottom: 1px solid #ccc;
 
     input[type="checkbox"] {
-      margin-right: 0.5rem;
-      height: 1.5rem;
-      width: 1.5rem;
-      // if checkbox is checked, its moved to the done list so we dont need to style it differently
-      // &:checked + p {
-      //   text-decoration: line-through;
-      // }
+      width: 2em;
+      height: 2em;
+      margin: 0;
     }
+
     p {
       margin: 0;
       width: 100%;
@@ -250,25 +304,17 @@ export default {
       background: none;
       cursor: pointer;
       font-size: 1.5rem;
-      color: rgb(255, 0, 0);
+      // color: rgb(255, 0, 0);
     }
   }
   .new-todo {
     display: flex;
+    margin-bottom: 1em;
     gap: 1em;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #ccc;
     input {
       width: 100%;
-    }
-    .add-todo {
-      border: none;
-      background: blue;
-      border-radius: 0.2em;
-      cursor: pointer;
-      font-size: 2rem;
-      color: rgb(255, 255, 255);
     }
   }
   .todo-items.done > div > .todo-item > p {
@@ -276,20 +322,15 @@ export default {
   }
   .subtasks {
     padding: 0.5rem;
+    margin-bottom: 0.5em;
     border: 1px solid #ccc;
-    width: 80%;
-    margin: 0 auto;
     border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
     // background gradient based on number of tasks done?
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.837),
-      rgba(107, 255, 97, 0.906)
-    );
+    box-shadow: inset 0 0 10px var(--faded-dark);
     .subtask {
       display: flex;
       align-items: center;
@@ -297,9 +338,9 @@ export default {
       padding: 0.5rem;
       border-bottom: 1px solid #ccc;
       input[type="checkbox"] {
-        margin-right: 0.5rem;
-        height: 1.5rem;
-        width: 1.5rem;
+        width: 2em;
+        height: 2em;
+        margin: 0;
         &:checked + p {
           text-decoration: line-through;
         }
@@ -317,7 +358,20 @@ export default {
         color: rgb(255, 0, 0);
       }
     }
+    :last-of-type {
+      border-bottom: none;
+    }
   }
+}
+.add-todo {
+  border: none;
+  background: var(--main-blue);
+  border-radius: 0.2em;
+  cursor: pointer;
+  font-size: 22px;
+  color: rgb(255, 255, 255);
+  width: 3em;
+  padding: 0.4em;
 }
 // stolen directly from the Vue fireblogs tutorial
 .modal {
@@ -335,39 +389,32 @@ export default {
     flex-direction: column;
     justify-content: center;
     border-radius: 8px;
-    width: 300px;
-    padding: 10px 30px;
+    width: 100%;
+    padding: 1em;
     background-color: #fff;
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid rgb(143, 143, 143);
-      border-radius: 0.5rem;
-      padding-top: 0.6em;
+    margin: 1em;
+    .close {
+      color: #aaaaaa;
+      font-size: 28px;
+      font-weight: bold;
     }
-    button {
-      margin: 0.5rem;
-      align-self: center;
+    .subtasks {
+      margin-bottom: 0.5em;
+
+      input {
+        width: -webkit-fill-available;
+      }
     }
     .new-subtask {
       display: flex;
+      gap: 1em;
       align-items: center;
       justify-content: space-between;
-      padding: 0.5rem;
-      margin: 1rem 0 0;
-      border-bottom: 1px solid #ccc;
-      input {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1px solid rgb(143, 143, 143);
-        border-radius: 0.5rem;
-        padding-top: 0.6em;
-      }
-      button {
-        margin: 0.5rem;
-        align-self: center;
-      }
+      margin: 1rem 0;
     }
   }
+}
+.delete-icon {
+  width: 1.3em;
 }
 </style>

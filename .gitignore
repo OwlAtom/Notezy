@@ -13,6 +13,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+#firebase emulator logs
+*-debug.log
+
 # Editor directories and files
 .idea
 .vscode

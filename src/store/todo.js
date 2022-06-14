@@ -1,8 +1,21 @@
 import { defineStore } from "pinia";
+import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getAuth } from "firebase/auth";
 import { compressToUTF16, decompressFromUTF16 } from "lz-string";
+import { cyrb53 } from "./cyrb53";
+
+const db = getDatabase();
+const auth = getAuth();
+let refTodos = null;
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    refTodos = ref(db, "users/" + user.uid + "/todo");
+  }
+});
 
 export const todoStore = defineStore("todo", {
   state: () => ({
+    lastHash: null,
     todoLists: [
       {
         name: "Today",
@@ -89,9 +102,10 @@ export const todoStore = defineStore("todo", {
   actions: {
     addTodoList(list) {
       this.todoLists.push(list);
+      // save to firebase
     },
-    removeTodoList(id) {
-      this.todoLists = this.todoLists.filter((list) => list.id !== id);
+    removeTodoList(listId) {
+      this.todoLists = this.todoLists.filter((list) => list.id !== listId);
     },
     addTodoItem(listId, item) {
       const list = this.todoLists.find((list) => list.id === listId);
@@ -100,6 +114,34 @@ export const todoStore = defineStore("todo", {
     removeTodoItem(listId, itemId) {
       const list = this.todoLists.find((list) => list.id === listId);
       list.items = list.items.filter((item) => item.id !== itemId);
+    },
+    saveToFirebase() {
+      console.log("trying to save to firebase");
+      // to prevent users from wasting all our quota, save a hash of the last state and compare it to a hash of the current state to see if anything changed
+      const stateHash = cyrb53(JSON.stringify(this.todoLists));
+      console.log(stateHash);
+      if (stateHash === this.lastHash) {
+        console.log("nothing changed, not saving");
+        return;
+      }
+      this.lastHash = stateHash;
+      // ? should we also time limit this, eg save only if 15 seconds have passed since last save?
+      // save to firebase
+      console.log("saving to firebase");
+      set(refTodos, this.todoLists);
+    },
+    // todo: if user is logged in and trying to view their todo lists, run this
+    loadFromFirebase() {
+      onValue(refTodos, (snapshot) => {
+        // debug console logging
+        snapshot.val().forEach((list) => {
+          console.log(list);
+          list.items.forEach((item) => {
+            console.log(item);
+          });
+        });
+        this.todoLists = snapshot.val();
+      });
     },
   },
   persist: {
