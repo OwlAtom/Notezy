@@ -38,7 +38,7 @@
     ></router-link>
     <h1 class="big-title">{{ list.name }}</h1>
     <span
-      ><button @click="removeTodoList(list)"><img :src="settingsIcon" /></button
+      ><button @click="removeTodoList(list)"><img :src="deleteIcon" /></button
     ></span>
   </header>
   <main class="todo-list">
@@ -254,6 +254,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
+header {
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+}
 .empty-list {
   display: flex;
   justify-content: center;
