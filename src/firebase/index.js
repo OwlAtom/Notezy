@@ -1,10 +1,7 @@
-const useEmulators = true;
+const useEmulators = false;
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -27,23 +24,10 @@ if (useEmulators) {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// use this to check if the user is logged in
-// or use the pinia store to check the fields "email" and "displayName"
-// is checking the pinia store faster than the firebase auth?
-const auth = getAuth();
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("user is logged in");
-  } else {
-    console.log("user is not logged in");
-  }
-});
-
 if (useEmulators) {
   const db = getFirestore();
   connectFirestoreEmulator(db, "localhost", 8880);
 }
 
 // export utils/refs
-export { app, auth };
+export { app };
