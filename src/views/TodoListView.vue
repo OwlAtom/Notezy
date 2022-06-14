@@ -2,13 +2,14 @@
   <div class="modal" v-if="modalActive">
     <div class="modal-content">
       <span class="close" @click="closeTodoModal">&times;</span>
+      <h2>Edit To Do:</h2>
       <input
         type="text"
         placeholder="Task name goes here.."
         :value="shownItem?.name"
         ref="modalTodoItemName"
       />
-      <h3>Subtasks:</h3>
+      <h3>Edit subtasks:</h3>
       <div
         class="subtasks"
         v-for="(subtask, index) in shownItem.subtasks"
@@ -276,6 +277,10 @@ header {
   .todo-items-divider {
     border-bottom: 1px solid #ccc;
   }
+  .todo-items :last-of-type {
+    border-bottom: none;
+  }
+
   .todo-item {
     display: flex;
     align-items: center;
@@ -284,14 +289,11 @@ header {
     // border-bottom: 1px solid #ccc;
 
     input[type="checkbox"] {
-      margin-right: 0.5rem;
-      height: 1.5rem;
-      width: 1.5rem;
-      // if checkbox is checked, its moved to the done list so we dont need to style it differently
-      // &:checked + p {
-      //   text-decoration: line-through;
-      // }
+      width: 2em;
+      height: 2em;
+      margin: 0;
     }
+
     p {
       margin: 0;
       width: 100%;
@@ -307,10 +309,10 @@ header {
   }
   .new-todo {
     display: flex;
+    margin-bottom: 1em;
     gap: 1em;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #ccc;
     input {
       width: 100%;
     }
@@ -320,20 +322,15 @@ header {
   }
   .subtasks {
     padding: 0.5rem;
+    margin-bottom: 0.5em;
     border: 1px solid #ccc;
-    width: 80%;
-    margin: 0 auto;
     border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
     // background gradient based on number of tasks done?
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.837),
-      rgba(107, 255, 97, 0.906)
-    );
+    box-shadow: inset 0 0 10px var(--faded-dark);
     .subtask {
       display: flex;
       align-items: center;
@@ -341,9 +338,9 @@ header {
       padding: 0.5rem;
       border-bottom: 1px solid #ccc;
       input[type="checkbox"] {
-        margin-right: 0.5rem;
-        height: 1.5rem;
-        width: 1.5rem;
+        width: 2em;
+        height: 2em;
+        margin: 0;
         &:checked + p {
           text-decoration: line-through;
         }
@@ -360,6 +357,9 @@ header {
         font-size: 1.5rem;
         color: rgb(255, 0, 0);
       }
+    }
+    :last-of-type {
+      border-bottom: none;
     }
   }
 }
@@ -389,8 +389,8 @@ header {
     flex-direction: column;
     justify-content: center;
     border-radius: 8px;
-    // width: 300px;
-    padding: 10px 30px;
+    width: 100%;
+    padding: 1em;
     background-color: #fff;
     margin: 1em;
     .close {
@@ -398,13 +398,19 @@ header {
       font-size: 28px;
       font-weight: bold;
     }
+    .subtasks {
+      margin-bottom: 0.5em;
+
+      input {
+        width: -webkit-fill-available;
+      }
+    }
     .new-subtask {
       display: flex;
       gap: 1em;
       align-items: center;
       justify-content: space-between;
-      margin: 1rem 0 0;
-      border-bottom: 1px solid #ccc;
+      margin: 1rem 0;
     }
   }
 }
