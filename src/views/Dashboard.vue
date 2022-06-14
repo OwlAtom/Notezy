@@ -6,11 +6,15 @@
     :alt="'Profile Image for ' + this.user.displayName"
     class="pfp"
   />
+  <main>
+    <AddTodoButton />
+  </main>
 </template>
 
 <script>
 import { userStore } from "../store/user";
 import logoutButton from "@/components/logoutButton.vue";
+import AddTodoButton from "@/components/AddTodoButton.vue";
 
 export default {
   name: "DashboardView",
@@ -21,6 +25,7 @@ export default {
   },
   components: {
     logoutButton: logoutButton,
+    AddTodoButton,
   },
 };
 </script>
