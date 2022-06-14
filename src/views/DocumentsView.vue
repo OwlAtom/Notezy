@@ -45,15 +45,6 @@ export default {
     },
   },
   methods: {
-    createDocument() {
-      // check if title is empty
-      if (this.title.length === 0) {
-        alert("Please enter a title");
-        return;
-      }
-      this.documentStore.createDocument(this.title, this.$route.params.id);
-      this.title = "";
-    },
     removeDocument(document) {
       this.documentStore.removeDocument(this.$route.params.id, document.id);
     },
