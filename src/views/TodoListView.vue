@@ -37,7 +37,9 @@
       ><span><img :src="backIcon" /></span
     ></router-link>
     <h1 class="big-title">{{ list.name }}</h1>
-    <span><img :src="settingsIcon" /></span>
+    <span
+      ><button @click="removeTodoList(list)"><img :src="settingsIcon" /></button
+    ></span>
   </header>
   <main class="todo-list">
     <div class="new-todo">
@@ -173,6 +175,10 @@ export default {
     };
   },
   methods: {
+    removeTodoList(list) {
+      history.back();
+      this.todoStore.removeTodoList(list.id);
+    },
     addTodoItem() {
       const todoItem = {
         name: this.$refs.todoItemName.value,
@@ -289,7 +295,7 @@ export default {
       background: none;
       cursor: pointer;
       font-size: 1.5rem;
-      color: rgb(255, 0, 0);
+      // color: rgb(255, 0, 0);
     }
   }
   .new-todo {

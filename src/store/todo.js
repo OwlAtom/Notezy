@@ -122,8 +122,8 @@ export const todoStore = defineStore("todo", {
       this.todoLists.push(list);
       // save to firebase
     },
-    removeTodoList(id) {
-      this.todoLists = this.todoLists.filter((list) => list.id !== id);
+    removeTodoList(listId) {
+      this.todoLists = this.todoLists.filter((list) => list.id !== listId);
     },
     addTodoItem(listId, item) {
       const list = this.todoLists.find((list) => list.id === listId);
