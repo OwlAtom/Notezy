@@ -32,16 +32,22 @@ export default {
       placeholder: "Write your notes here",
     });
 
-    const that = this;
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "hidden") {
-        that.saveDocument();
+    document.addEventListener("visibilitychange", this.handleVisibilityChange);
+    window.addEventListener("pagehide", this.handlePageHide);
+    // listen for when user leaves page / navigates to another part of the app
+    // if user leaves page, remove event listeners
+  },
+  watch: {
+    $route(to) {
+      // if user navigates away from this page, remove event listeners
+      if (to.name !== "Document") {
+        document.removeEventListener(
+          "visibilitychange",
+          this.handleVisibilityChange
+        );
+        window.removeEventListener("pagehide", this.handlePageHide);
       }
-    });
-
-    window.addEventListener("pagehide", () => {
-      that.saveDocument();
-    });
+    },
   },
   computed: {
     documentStore() {
@@ -56,6 +62,14 @@ export default {
     },
   },
   methods: {
+    handleVisibilityChange() {
+      if (document.visibilityState === "hidden") {
+        this.saveDocument();
+      }
+    },
+    handlePageHide() {
+      this.saveDocument();
+    },
     goBack() {
       this.$router.push({
         name: "Documents",
