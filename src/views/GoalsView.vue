@@ -50,7 +50,7 @@
     </div>
   </div>
   <!-- end of modal -->
-  <main class="goalsview-wrapper">
+  <main>
     <h1 class="big-title">Goals</h1>
     <div class="week-bar">
       <div :class="{ currentDay: currentDay == 1 }">M</div>
@@ -198,10 +198,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.goalsview-wrapper {
-  margin: 1.5em;
-}
-
 .colors {
   display: flex;
   flex-wrap: wrap;
@@ -255,8 +251,9 @@ router-link {
 .currentDay {
   background-color: var(--main-blue);
 }
-// modal :-)
+// modal
 .modal-backdrop {
+  z-index: 5;
   position: fixed;
   top: 0;
   bottom: 0;
