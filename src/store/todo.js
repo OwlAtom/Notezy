@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import { getAuth } from "firebase/auth";
+import { compressToUTF16, decompressFromUTF16 } from "lz-string";
 
 const db = getDatabase();
 const auth = getAuth();
@@ -164,6 +165,16 @@ export const todoStore = defineStore("todo", {
   persist: {
     afterRestore: (context) => {
       console.log(`rehydrated ${context.store.todoLists.length} todo lists`);
+    },
+    serializer: {
+      // called when the store is saved
+      serialize: (state) => {
+        return compressToUTF16(JSON.stringify(state));
+      },
+      // called when the store is loaded
+      deserialize: (state) => {
+        return JSON.parse(decompressFromUTF16(state));
+      },
     },
   },
 });

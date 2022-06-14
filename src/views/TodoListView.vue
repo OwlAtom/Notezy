@@ -32,15 +32,14 @@
     </div>
   </div>
 
+  <header>
+    <router-link :to="{ name: 'Todo' }"
+      ><span><img :src="backIcon" /></span
+    ></router-link>
+    <h1 class="big-title">{{ list.name }}</h1>
+    <span><img :src="settingsIcon" /></span>
+  </header>
   <main class="todo-list">
-    <header>
-      <router-link :to="{ name: 'Todo' }"
-        ><span><img :src="backIcon" /></span
-      ></router-link>
-      <h1 class="big-title">{{ list.name }}</h1>
-      <span><img :src="settingsIcon" /></span>
-    </header>
-
     <div class="new-todo">
       <input
         type="text"
@@ -174,6 +173,7 @@ export default {
     },
     removeTodoItem(item) {
       this.todoStore.removeTodoItem(this.list.id, item.id);
+      console.log("Deleted item in list: " + item.id);
     },
     startHolding(item) {
       // probably change to just set ID and get a reference to the item
@@ -237,16 +237,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  img {
-    width: 2.5em;
-  }
-}
-
 .todo-list {
   .todo-items-divider {
     border-bottom: 1px solid #ccc;

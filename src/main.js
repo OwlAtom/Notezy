@@ -1,3 +1,5 @@
+import "./firebase";
+
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -9,8 +11,6 @@ const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
 createApp(App).use(pinia).use(router).mount("#app");
-
-import "./firebase";
 
 import setupStores from "@/store/index";
 setupStores();

@@ -1,8 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
@@ -19,18 +17,5 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// use this to check if the user is logged in
-// or use the pinia store to check the fields "email" and "displayName"
-// is checking the pinia store faster than the firebase auth?
-const auth = getAuth();
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("user is logged in");
-  } else {
-    console.log("user is not logged in");
-  }
-});
-
 // export utils/refs
-export { app, auth };
+export { app };

@@ -1,6 +1,7 @@
 <template>
   <div class="modal" v-if="modalActive">
     <div class="modal-content">
+      <div class="close" @click="closeFolderModal">&times;</div>
       <h2>New doc folder:</h2>
       <input
         type="text"
@@ -25,18 +26,26 @@
     </div>
   </div>
   <main>
-    <h1>All folders</h1>
-    <div
-      class="folders"
-      v-for="(folder, index) in documentStore.folders"
-      :key="index"
-      @click="openFolder(folder.id)"
-    >
-      <div class="folder-name" :style="{ backgroundColor: folder.color }">
-        {{ folder.name }}
+    <h1 class="big-title">All folders</h1>
+    <div class="folders">
+      <div
+        class="folder"
+        v-for="(folder, index) in documentStore.folders"
+        :key="index"
+        :style="{ backgroundColor: folder.color }"
+      >
+        <div class="folder-name" @click="openFolder(folder.id)">
+          {{ folder.name }}
+        </div>
+        <div class="folder-delete">
+          <button @click="removeFolder(folder)">&times;</button>
+        </div>
       </div>
     </div>
-    <button @click="createNewFolder">Create new folder</button>
+
+    <button class="btn btn-alt" @click="createNewFolder">
+      Create new folder
+    </button>
   </main>
 </template>
 
@@ -66,28 +75,25 @@ export default {
     openFolder(id) {
       this.$router.push({ name: "Documents", params: { id } });
     },
+    closeFolderModal() {
+      this.modalActive = false;
+    },
+    removeFolder(folder) {
+      this.documentStore.removeFolder(folder.id);
+    },
   },
   data() {
     return {
       modalActive: false,
       color: null,
       colors: [
-        "#f44336",
-        "#e91e63",
-        "#9c27b0",
-        "#673ab7",
-        "#3f51b5",
-        "#2196f3",
-        "#03a9f4",
-        "#00bcd4",
-        "#009688",
-        "#4caf50",
-        "#8bc34a",
-        "#cddc39",
-        "#ffeb3b",
-        "#ffc107",
-        "#ff9800",
-        "#ff5722",
+        "#68dea3",
+        "#818ef5",
+        "#8aede5",
+        "#d79ef4",
+        "#ed84a0",
+        "#f7be87",
+        "#f1de79",
       ],
     };
   },
@@ -109,22 +115,29 @@ export default {
   }
 }
 .folders {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  .folder {
+    width: 100%;
+    margin-bottom: 1em;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em;
+  }
   .folder-name {
-    width: 5em;
-    height: 5em;
-    border: 1px solid #ccc;
-    border-radius: 5%;
-    margin: 5px;
     cursor: pointer;
-    text-align: center;
-    line-height: 5em;
-    color: white;
-    text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000,
-      1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;
-    font-size: 1.5em;
+    padding: 1em;
+    color: var(--main-dark-color);
+    width: 100%;
+  }
+  .folder-delete {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 1em;
+    button {
+      margin-left: 1em;
+    }
   }
 }
 // stolen directly from the Vue fireblogs tutorial
@@ -152,6 +165,11 @@ export default {
     button {
       align-self: center;
     }
+  }
+  .close {
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
   }
 }
 </style>

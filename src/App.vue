@@ -58,6 +58,10 @@ body {
   font-weight: 700;
 }
 
+.smaller-title {
+  font-size: 1rem;
+}
+
 // .big-text {
 //   font-family: "Nunito Sans", sans-serif;
 //   font-size: 0.5rem;
@@ -95,7 +99,7 @@ label {
 }
 
 main {
-  margin: 1em;
+  margin: 0 1em 7em;
 }
 
 input {
@@ -111,7 +115,23 @@ input {
   border-radius: 0.5em;
   font-family: "Nunito Sans", sans-serif;
   color: var(--main-white);
-  padding: 1em;
+  padding: 1.2em;
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-border {
+  background-color: transparent;
+  border: 2px solid var(--main-blue);
+  color: var(--main-dark-color);
+}
+
+.btn-alt {
+  background-color: initial;
+  border: 2px solid var(--main-blue);
+  color: var(--main-dark-color);
 }
 
 #app {
@@ -123,5 +143,20 @@ input {
 
 button {
   width: 80%;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 1em;
+
+  img {
+    width: 2.5em;
+  }
+
+  .empty-space {
+    width: 2.5em;
+  }
 }
 </style>
