@@ -1,12 +1,19 @@
 <template>
-  <logout-button></logout-button>
-  <h1>Hello {{ this.user.displayName }}!</h1>
-  <img
-    :src="this.user.photoURL"
-    :alt="'Profile Image for ' + this.user.displayName"
-    class="pfp"
-  />
-  <AddTodoButton />
+  <main>
+    <logout-button></logout-button>
+    <div
+      style="display: flex; align-items: center; justify-content: space-between"
+    >
+      <h1 style="font-size: 1.8em">Hello {{ this.user.displayName }}!</h1>
+      <img
+        :src="this.user.photoURL"
+        :alt="'Profile Image for ' + this.user.displayName"
+        class="pfp"
+      />
+    </div>
+
+    <AddTodoButton />
+  </main>
 </template>
 
 <script>
@@ -30,10 +37,10 @@ export default {
 
 <style lang="less">
 .pfp {
-  width: 150px;
-  height: 150px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 0 auto;
+  margin: 0;
 }
 </style>
