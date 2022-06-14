@@ -6,9 +6,7 @@
     :alt="'Profile Image for ' + this.user.displayName"
     class="pfp"
   />
-  <main>
-    <AddTodoButton />
-  </main>
+  <AddTodoButton />
 </template>
 
 <script>

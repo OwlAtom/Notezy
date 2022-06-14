@@ -3,9 +3,7 @@
     <h1 class="big-title">Notes</h1>
     <router-link :to="{ name: 'Folders' }">&lt; Back</router-link>
     <br />
-    <input type="text" placeholder="Name your document" v-model="title" />
-    <button @click="createDocument">+</button>
-
+    <AddDocument />
     <!-- Show documents in folder -->
     <ul>
       <li v-for="(document, index) in documents" :key="index">
@@ -25,9 +23,13 @@
 
 <script>
 import { documentStore } from "../store/documents";
+import AddDocument from "@/components/AddDocument.vue";
 
 export default {
   name: "DocumentsView",
+  components: {
+    AddDocument,
+  },
   data() {
     return {
       title: "",
@@ -43,10 +45,6 @@ export default {
     },
   },
   methods: {
-    createDocument() {
-      this.documentStore.createDocument(this.title, this.$route.params.id);
-      this.title = "";
-    },
     removeDocument(document) {
       this.documentStore.removeDocument(this.$route.params.id, document.id);
     },
