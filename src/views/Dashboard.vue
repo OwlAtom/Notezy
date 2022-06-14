@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .pfp {
   width: 150px;
   height: 150px;
