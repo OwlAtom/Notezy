@@ -42,6 +42,7 @@ export default {
       debugger;
       this.todoStore.saveToFirebase();
     });
+    this.todoStore.loadFromFirebase();
   },
 };
 </script>

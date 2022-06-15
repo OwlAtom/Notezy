@@ -131,15 +131,19 @@ export const todoStore = defineStore("todo", {
       set(refTodos, this.todoLists);
     },
     // todo: if user is logged in and trying to view their todo lists, run this
-    loadFromFirebase() {
-      onValue(refTodos, (snapshot) => {
-        // debug console logging
-        snapshot.val().forEach((list) => {
-          console.log(list);
-          list.items.forEach((item) => {
-            console.log(item);
+    async loadFromFirebase() {
+      if (!refTodos) {
+        await new Promise((resolve) => {
+          auth.onAuthStateChanged((user) => {
+            if (user) {
+              refTodos = ref(db, "users/" + user.uid + "/todo");
+              resolve();
+            }
           });
         });
+      }
+      onValue(refTodos, (snapshot) => {
+        // set the state to the value of the snapshot
         this.todoLists = snapshot.val();
       });
     },

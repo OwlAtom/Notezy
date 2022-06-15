@@ -1,6 +1,8 @@
 <template>
-  <input type="text" placeholder="Name your document" v-model="title" />
-  <button @click="createDocument">+</button>
+  <div class="add-flex">
+    <input type="text" placeholder="Name your document" v-model="title" />
+    <button class="add-btn" @click="createDocument">+</button>
+  </div>
 </template>
 
 <script>
@@ -27,4 +29,9 @@ export default {
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less">
+.add-flex {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

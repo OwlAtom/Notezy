@@ -31,6 +31,9 @@ export const goalStore = defineStore("goals", {
       goal.id = uuidv4();
       this.goals.push(goal);
     },
+    removeGoal(id) {
+      this.goals = this.goals.filter((goal) => goal.id !== id);
+    },
   },
   persist: {
     serializer: {

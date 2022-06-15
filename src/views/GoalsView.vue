@@ -2,15 +2,19 @@
   <div class="modal-backdrop" v-show="showModal">
     <div class="modal">
       <h1>New Goal</h1>
-      <label for="Name" class="small-title">Name:</label>
+      <label for="Name" class="small-title small-title-modal">Name:</label>
       <input id="Name" type="text" placeholder="Name your goal" />
-      <label for="Desc" class="small-title">Desc:</label>
+      <label for="Desc" class="small-title small-title-modal">Desc:</label>
       <input id="Desc" type="text" placeholder="Describe your goal" />
 
-      <label for="timesPerWeek" class="small-title">Times per week:</label>
+      <label for="timesPerWeek" class="small-title small-title-modal"
+        >Times per week:</label
+      >
       <input id="timesPerWeek" type="number" min="1" max="7" value="1" />
 
-      <label for="specDays" class="small-title">On specific days</label>
+      <label for="specDays" class="small-title small-title-modal"
+        >On specific days</label
+      >
       <!-- <input id="specDays" type="checkbox" v-model="onSpecificDays" /> -->
 
       <!-- test switch  -->
@@ -31,7 +35,7 @@
         </div>
       </div>
 
-      <label for="colors" class="small-title">Color</label>
+      <label for="colors" class="small-title small-title-modal">Color</label>
       <div id="colors" class="colors">
         <div
           class="color"
@@ -66,16 +70,14 @@
       <SingleGoal :goal="goal" />
     </template>
     <button type="button" class="btn btn-alt btn-border" @click="toggleModal">
-      <img :src="plusIcon" /> Create New Goal
+      Create New Goal
     </button>
   </main>
-  <CreateGoal v-show="isModalVisible" @close="closeModal" />
 </template>
 
 <script>
 import SingleGoal from "../components/SingleGoal.vue";
 import todoIcon from "../assets/icons/check_circle_black_24dp.svg";
-import plusIcon from "../assets/icons/plus_circle_black_24dp.svg";
 import { goalStore } from "../store/goals";
 
 export default {
@@ -84,7 +86,6 @@ export default {
   setup() {
     return {
       todoIcon,
-      plusIcon,
     };
   },
   data() {
@@ -259,24 +260,24 @@ router-link {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .modal {
-  background: #ffffff;
-  box-shadow: 2px 2px 20px 1px;
+  background: var(--main-white);
   overflow-x: auto;
   display: flex;
-  justify-content: center;
   z-index: 101;
   flex-direction: column;
   width: 100%;
-  height: 100%;
-  margin: 1em;
-  padding: 1em;
+  margin: 0.5em 1em;
+  padding: 1em 1.5em;
+  border-radius: 1em;
+  h1 {
+    margin: 0.25em 0;
+  }
 }
 
 .modal-header,
@@ -301,6 +302,10 @@ router-link {
 .modal-body {
   position: relative;
   padding: 20px 10px;
+}
+
+.small-title-modal {
+  margin: 0.5em 0;
 }
 
 // toggle switch
@@ -367,10 +372,17 @@ input:checked + .slider:before {
 .day-container {
   height: 7.6em;
   background-color: var(--secondary-bg);
-  padding: 0 1.6em;
+  padding: 0 1em;
+  margin: 0.5em;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
+  box-shadow: inset 0 0 10px var(--faded-dark);
+  border-radius: 1em;
+
+  p {
+    margin: 0;
+  }
 }
 
 .day-container-flex {
@@ -383,6 +395,11 @@ input:checked + .slider:before {
   flex-direction: column;
   align-items: center;
   margin-right: 1.3em;
+
+  input[type="checkbox"] {
+    width: 1.1em;
+    height: 1.1em;
+  }
 }
 
 .btn-close {

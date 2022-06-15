@@ -1,7 +1,13 @@
 <template>
   <div class="wrapper">
     <div class="goal" :style="{ backgroundColor: color }" :id="id">
-      <h4 class="small-title">{{ title }}</h4>
+      <div class="goal-flex">
+        <h4 class="small-title">{{ title }}</h4>
+        <button @click="removeGoal(goal)">
+          <img :src="deleteIcon" />
+        </button>
+      </div>
+
       <div class="checkboxes">
         <input
           type="checkbox"
@@ -16,8 +22,15 @@
 </template>
 
 <script>
+import deleteIcon from "../assets/icons/delete.svg";
+import { goalStore } from "../store/goals";
 export default {
   name: "SingleGoal",
+  setup() {
+    return {
+      deleteIcon,
+    };
+  },
   data() {
     return {
       colors: [
@@ -32,6 +45,9 @@ export default {
     };
   },
   computed: {
+    goalStore() {
+      return goalStore();
+    },
     title() {
       // returns the title of the prop goal
       return this.$props.goal.title;
@@ -54,6 +70,11 @@ export default {
     },
     id() {
       return this.$props.goal.id;
+    },
+  },
+  methods: {
+    removeGoal(goal) {
+      this.goalStore.removeGoal(goal.id);
     },
   },
   props: {
@@ -84,6 +105,20 @@ export default {
     padding: 0 1em;
     border-radius: 0.5em;
     margin-bottom: 1em;
+    .goal-flex {
+      display: flex;
+      justify-content: space-between;
+      button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+
+        img {
+          width: 32px;
+        }
+      }
+    }
     // background-color: var(--main-blue);
     .checkboxes {
       display: flex;

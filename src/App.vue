@@ -147,6 +147,19 @@ input {
   color: var(--main-dark-color);
 }
 
+.add-btn {
+  border: none;
+  background: var(--main-blue);
+  border-radius: 0.2rem;
+  cursor: pointer;
+
+  font-size: 22px;
+  color: rgb(255, 255, 255);
+
+  width: 65px;
+  height: 2.8rem;
+  // line-height: 3.3rem;
+}
 // button {
 //   width: 80%;
 // }

@@ -16,8 +16,10 @@
           class="color-chooser-color"
           v-for="color in colors"
           :style="{ backgroundColor: color }"
+          :class="{ selected: color === selectedColor }"
           @click="setColor(color)"
           :key="color"
+          :ref="color"
         ></div>
       </div>
       <!-- todo: make into component -->
@@ -94,14 +96,25 @@ export default {
       this.selectedColor = "";
     },
     setColor(color) {
-      console.log(color);
       this.selectedColor = color;
+      // clear other highlighted colors
+      for (let colorFromList of this.colors) {
+        this.$refs[colorFromList].classList?.remove("selected");
+      }
+      // highlight color
+      this.$refs[color].classList?.add("selected");
     },
     openFolder(id) {
       this.$router.push({ name: "Documents", params: { id } });
     },
     closeFolderModal() {
       this.modalActive = false;
+      this.selectedColor = "";
+      this.$refs.folderName.value = "";
+      // remove selected color class
+      for (let colorFromList of this.colors) {
+        this.$refs[colorFromList].classList?.remove("selected");
+      }
     },
     async removeFolder(folder) {
       const status = await this.documentStore.removeFolder(folder.id);
@@ -141,6 +154,10 @@ export default {
     border-radius: 50%;
     margin: 5px;
     cursor: pointer;
+    &.selected {
+      border: 0.5px solid rgb(58 58 58 / 50%);
+      box-shadow: inset 4px 4px 6px 0px rgb(0 0 0 / 16%);
+    }
   }
 }
 .folders {

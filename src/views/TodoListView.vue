@@ -25,7 +25,7 @@
       </div>
       <div class="new-subtask">
         <input type="text" placeholder="Add a subtask" ref="newSubtaskName" />
-        <button class="add-todo" @click="addSubtask">+</button>
+        <button class="add-btn" @click="addSubtask">+</button>
       </div>
       <button class="btn" @click="saveItemEdits">
         Save Changes and close modal
@@ -50,7 +50,7 @@
         ref="todoItemName"
         @keypress.enter="addTodoItem"
       />
-      <button class="add-todo" @click="addTodoItem">+</button>
+      <button class="add-btn" @click="addTodoItem">+</button>
     </div>
 
     <div class="todo-items">
@@ -181,6 +181,10 @@ export default {
       this.todoStore.removeTodoList(list.id);
     },
     addTodoItem() {
+      // check if the input is empty
+      if (this.$refs.todoItemName.value === "") {
+        return;
+      }
       const todoItem = {
         name: this.$refs.todoItemName.value,
         id: uuid(),
@@ -234,11 +238,19 @@ export default {
       }
     },
     addSubtask() {
+      // if the subtask input is empty, return
+      if (this.$refs.subtaskName?.value === "") {
+        return;
+      }
       const subtask = {
         name: this.$refs.newSubtaskName.value,
         id: uuid(),
       };
-      this.shownItem.subtasks.push(subtask);
+      // if shownitem has no subtasks array, create one
+      if (!this.shownItem.subtasks) {
+        this.shownItem.subtasks = [];
+      }
+      this.shownItem.subtasks = [...this.shownItem.subtasks, subtask];
       this.$refs.newSubtaskName.value = "";
     },
     removeSubtask(item, subtask) {
@@ -311,9 +323,6 @@ header {
     gap: 1em;
     align-items: center;
     justify-content: space-between;
-    input {
-      width: 100%;
-    }
   }
   .todo-items.done > div > .todo-item > p {
     text-decoration: line-through;
@@ -361,16 +370,7 @@ header {
     }
   }
 }
-.add-todo {
-  border: none;
-  background: var(--main-blue);
-  border-radius: 0.2em;
-  cursor: pointer;
-  font-size: 22px;
-  color: rgb(255, 255, 255);
-  width: 3em;
-  padding: 0.4em;
-}
+
 // stolen directly from the Vue fireblogs tutorial
 .modal {
   display: flex;
