@@ -110,10 +110,6 @@ export const documentStore = defineStore("documents", {
         return;
       }
       document.lastHash = stateHash;
-
-      // calc hash of content
-      // const hash = crypto.createHash("sha256").update(content).digest("hex");
-      // document.hash = hash;
       // save the document in the firestore database
       setDoc(
         doc(db, `users/${userID}/folders/${folderId}/documents/${documentId}`),

@@ -194,11 +194,9 @@ export default {
       console.log("Deleted item in list: " + item.id);
     },
     startHolding(item) {
-      // probably change to just set ID and get a reference to the item
       this.heldItemID = item.id;
-      // set a timeout for 1 second
+      // set a timeout for X
       this.holdTimer = setTimeout(() => {
-        // if the item is not completed, remove it
         this.showEditModal();
       }, 500);
     },
