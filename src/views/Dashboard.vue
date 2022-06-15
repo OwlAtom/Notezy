@@ -13,9 +13,10 @@
     </div>
 
     <AddTodoButton />
+    <br />
     <template v-for="goal in goalStore.goals" :key="goal.id">
       <!-- Skal kun hente goals med id -->
-      <SingleGoal v-if="(goal.id = 1)" :goal="goal" />
+      <SingleGoal v-if="goal.id == 1" :goal="goal" />
     </template>
   </main>
 </template>
