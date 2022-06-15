@@ -247,9 +247,7 @@ export default {
         id: uuid(),
       };
       // if shownitem has no subtasks array, create one
-      if (!this.shownItem.subtasks) {
-        this.shownItem.subtasks = [];
-      }
+
       this.shownItem.subtasks = [...this.shownItem.subtasks, subtask];
       this.$refs.newSubtaskName.value = "";
     },

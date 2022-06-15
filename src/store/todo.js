@@ -132,6 +132,14 @@ export const todoStore = defineStore("todo", {
     },
     // todo: if user is logged in and trying to view their todo lists, run this
     async loadFromFirebase() {
+      const HoursBetweenLoads = 4;
+      if (
+        this.lastLoad &&
+        Date.now() - this.lastLoad < HoursBetweenLoads * 60 * 60 * 1000
+      ) {
+        return;
+      }
+      this.lastLoad = Date.now();
       if (!refTodos) {
         await new Promise((resolve) => {
           auth.onAuthStateChanged((user) => {

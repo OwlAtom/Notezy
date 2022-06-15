@@ -18,7 +18,11 @@
     </template>
     <AddTodoButton />
 
-    <SimplifiedTodoList v-if="todoStore.todoLists.id == 1" :list="list" />
+    <SimplifiedTodoList
+      v-for="(list, index) in todoStore.todoLists"
+      :key="index"
+      :list="list"
+    />
   </main>
 </template>
 
