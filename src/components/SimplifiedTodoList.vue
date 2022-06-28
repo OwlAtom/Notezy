@@ -1,6 +1,7 @@
 <template>
   <div class="todo-list" @click="openTodoList(list.id)">
     <h2 class="small-title">{{ list.name }}</h2>
+
     <div class="todo-items" v-for="(item, index) in list.items" :key="index">
       <div class="todo-item">
         <p :class="{ completed: item.completed }">{{ item.name }}</p>
@@ -14,7 +15,7 @@
         </div>
       </template>
     </div>
-    <div class="empty-list" v-if="list.items.length == 0">
+    <div class="empty-list" v-if="list.items?.length == 0">
       <p>No todos yet</p>
     </div>
   </div>

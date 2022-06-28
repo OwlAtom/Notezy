@@ -54,7 +54,7 @@
     </div>
 
     <div class="todo-items">
-      <div class="empty-list" v-if="list.items.length == 0">
+      <div class="empty-list" v-if="list.items?.length == 0">
         <p>No todos added yet</p>
       </div>
       <div
@@ -158,10 +158,10 @@ export default {
       );
     },
     checkedItems() {
-      return this.list.items.filter((item) => item.completed);
+      return this.list.items?.filter((item) => item.completed);
     },
     uncheckedItems() {
-      return this.list.items.filter((item) => !item.completed);
+      return this.list.items?.filter((item) => !item.completed);
     },
   },
   mounted() {

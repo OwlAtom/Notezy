@@ -109,11 +109,16 @@ export const todoStore = defineStore("todo", {
     },
     addTodoItem(listId, item) {
       const list = this.todoLists.find((list) => list.id === listId);
+      // if list.items is not an array, create it
+      if (!Array.isArray(list.items)) {
+        list.items = [];
+      }
+      // add to the items array
       list.items.push(item);
     },
     removeTodoItem(listId, itemId) {
       const list = this.todoLists.find((list) => list.id === listId);
-      list.items = list.items.filter((item) => item.id !== itemId);
+      list.items = list.items?.filter((item) => item.id !== itemId);
     },
     saveToFirebase() {
       console.log("trying to save to firebase");
